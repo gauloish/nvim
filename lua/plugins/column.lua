@@ -12,8 +12,6 @@ local column = modules("statuscol")
 
 ---------- Other Configurations
 
-print("oi")
-
 column.setup({
 	foldfunc = "builtin",
 	setopt = true,
