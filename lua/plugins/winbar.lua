@@ -42,7 +42,7 @@ winbar.setup({
 		--dirname = { fg = "#737aa2" },
 		dirname = { link = "Normal" },
 		basename = { link = "Normal" },
-		--context = {},
+		context = { link = "Normal" },
 
 		context_class = { link = "GreenSecondAbove" },
 		context_enum = { link = "GreenSecondAbove" },
