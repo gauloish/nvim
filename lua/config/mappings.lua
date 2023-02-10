@@ -308,8 +308,6 @@ local modifiers = {
 	substitute = function(this, that)
 		local pos = { eval["line"]("."), eval["col"](".") }
 
-		print(this, that)
-
 		if this == "''" or this == '""' then
 			execute("normal! v")
 			execute("normal! 2i" .. this:sub(1, 1))
