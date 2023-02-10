@@ -431,8 +431,6 @@ end
 themes.configure = function()
 	varglobal("nord_bold", false)
 
-	print(varglobal("nord_bold"))
-
 	local schemes = {
 		["catppuccin"] = {
 			term_colors = true,
