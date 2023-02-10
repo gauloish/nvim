@@ -105,7 +105,7 @@ winbar.setup({
 		Struct = "",
 		Event = "כּ",
 		Operator = "◎",
-		TypeParameter = "φ", --"",
+		TypeParameter = "", --"",
 	},
 })
 
