@@ -111,9 +111,10 @@ winbar.setup({
 
 local function update()
 	local exclude = {
-		Startup = true,
-		Buffers = true,
-		NvimTree = true,
+		["Startup"] = true,
+		["Buffers"] = true,
+		["NvimTree"] = true,
+		[""] = true,
 	}
 
 	for _, window in pairs(vim.api.nvim_list_wins()) do
@@ -121,10 +122,8 @@ local function update()
 
 		local filetype = getbuffer("filetype", buffer)
 
-		print(buffer, window)
-
 		if exclude[filetype] then
-			varwindow("winbar", "", window)
+			setwindow("winbar", "", window)
 		else
 			util.update(window)
 		end
@@ -134,8 +133,8 @@ end
 augroup("WinbarUpdate")
 do
 	-- autocmd("WinbarUpdate", "WinResized", "*", update)
-	--autocmd("WinbarUpdate", "VimEnter", "*", update)
-	--autocmd("WinbarUpdate", "WinEnter", "*", update)
+	-- autocmd("WinbarUpdate", "VimEnter", "*", update)
+	-- autocmd("WinbarUpdate", "WinEnter", "*", update)
 	autocmd("WinbarUpdate", "BufWinEnter", "*", update)
 	autocmd("WinbarUpdate", "CursorHold", "*", update)
 	autocmd("WinbarUpdate", "InsertLeave", "*", update)
