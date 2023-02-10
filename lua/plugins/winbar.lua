@@ -19,19 +19,9 @@ local util = modules("barbecue.ui")
 ---------- Other Configurations
 
 winbar.setup({
-	attach_navic = true,
 	create_autocmd = false,
-	include_buftypes = { "" },
-	modifiers = {
-		dirname = ":~:.",
-		basename = "",
-	},
 	show_dirname = false,
 	show_modified = true,
-	show_navic = true,
-	custom_section = function()
-		return ""
-	end,
 	theme = {
 		normal = { link = "BaseTenthAbove" },
 
@@ -131,9 +121,6 @@ end
 
 augroup("WinbarUpdate")
 do
-	-- autocmd("WinbarUpdate", "WinResized", "*", update)
-	-- autocmd("WinbarUpdate", "VimEnter", "*", update)
-	-- autocmd("WinbarUpdate", "WinEnter", "*", update)
 	autocmd("WinbarUpdate", "BufWinEnter", "*", update)
 	autocmd("WinbarUpdate", "CursorHold", "*", update)
 	autocmd("WinbarUpdate", "InsertLeave", "*", update)
