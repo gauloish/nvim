@@ -21,7 +21,7 @@ set("smartindent", true)
 set("timeout", true)
 set("timeoutlen", 100000)
 
-set("updatetime", 5000)
+set("updatetime", 500)
 
 set("foldcolumn", "2")
 set("foldnestmax", 0)
