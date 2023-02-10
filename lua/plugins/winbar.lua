@@ -40,7 +40,8 @@ winbar.setup({
 		modified = { link = "BaseSixthAbove" },
 
 		--dirname = { fg = "#737aa2" },
-		--basename = { bold = true },
+		dirname = { link = "Normal" },
+		basename = { link = "Normal" },
 		--context = {},
 
 		context_class = { link = "GreenSecondAbove" },
