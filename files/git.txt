@@ -1,6 +1,12 @@
 Init Repository:
 	git init <directory>
 
+Add Changes:
+	git add <file>
+
+Commit Changes:
+	git commit -m "<comment>"
+
 Rename (Move) Branch:
 	git branch --move <from> <to>
 
@@ -13,8 +19,5 @@ Remove Branch:
 Go to Branch:
 	git checkout <branch>
 
-Add Changes:
-	git add <file>
-
-Commit Changes:
-	git commit -m "<comment>"
+Push Local Repo to Remote Repo:
+	git remote add origin <url>
