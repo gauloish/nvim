@@ -238,6 +238,13 @@ themes.verify = {
 	end,
 }
 
+themes.colors = function()
+	themes.verify["color"]()
+	themes.verify["update"]()
+
+	return components()["colors"]
+end
+
 themes.definitions = function()
 	local path = eval["stdpath"]("config") .. "/files/theme.txt"
 
