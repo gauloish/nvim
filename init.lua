@@ -23,7 +23,7 @@ require("tools/holdin")
 
 require("plugins/fold")
 --require('plugins/move')
---require('plugins/signs')
+require("plugins/signs")
 require("plugins/pairs")
 require("plugins/shift")
 require("plugins/wilder")
