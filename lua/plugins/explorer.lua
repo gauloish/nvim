@@ -95,7 +95,7 @@ explorer.setup({
 					unstaged = "×",
 					staged = "+",
 					unmerged = "",
-					renamed = "=>",
+					renamed = "~",
 					untracked = "*",
 					deleted = "-",
 					ignored = "•",
@@ -168,6 +168,22 @@ local function colors()
 	highlight("NvimStatusLineNC", { link = "BaseSecondBelowBaseTenthAbove", clear = true })
 	highlight("NvimTreeWinSeparator", { link = "BaseThirdBelowBaseThirdAbove", clear = true })
 	highlight("NvimTreeEndOfBuffer", { link = "BaseSecondAbove", clear = true })
+
+	highlight("NvimTreeGitDirty", { link = "BlueSecondAbove", clear = true })
+	highlight("NvimTreeGitStaged", { link = "GreenSecondAbove", clear = true })
+	highlight("NvimTreeGitMerge", { link = "YellowSecondAbove", clear = true })
+	highlight("NvimTreeGitRenamed", { link = "MagentaSecondAbove", clear = true })
+	highlight("NvimTreeGitNew", { link = "CyanSecondAbove", clear = true })
+	highlight("NvimTreeGitDeleted", { link = "RedSecondAbove", clear = true })
+	highlight("NvimTreeGitIgnored", { link = "BaseTenthAbove", clear = true })
+
+	highlight("NvimTreeFileDirty", { link = "NvimTreeGitDirty", clear = true })
+	highlight("NvimTreeFileStaged", { link = "NvimTreeGitStaged", clear = true })
+	highlight("NvimTreeFileMerge", { link = "NvimTreeGitMerge", clear = true })
+	highlight("NvimTreeFileRenamed", { link = "NvimTreeGitRenamed", clear = true })
+	highlight("NvimTreeFileNew", { link = "NvimTreeGitNew", clear = true })
+	highlight("NvimTreeFileDeleted", { link = "NvimTreeGitDeleted", clear = true })
+	highlight("NvimTreeFileIgnored", { link = "NvimTreeGitIgnored", clear = true })
 
 	highlight("NvimTreeWindowPicker", { link = "BaseFifthBelowCaseFifthAbove", clear = true })
 
