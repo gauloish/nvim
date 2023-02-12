@@ -127,8 +127,14 @@ functions.icon = function(length, state)
 	return icons.icon(extension)
 end
 
-functions.git = function()
-	-- pass
+functions.git = function(length, state)
+	local branch = varbuffer("gitsigns_head")
+
+	local added = varglobal("gitsigns_status_dict")["added"]
+	local removed = varglobal("gitsigns_status_dict")["removed"]
+	local changed = varglobal("gitsigns_status_dict")["changed"]
+
+	return (" %s +%s -%s ~%s"):format(branch, added, removed, changed)
 end
 
 functions.path = function(length, state)
@@ -184,7 +190,9 @@ end
 
 local enabled = {}
 
-enabled.git = function() end
+enabled.git = function()
+	return varbuffer("gitsigns_head") or varbuffer("gitsigns_status_dict")
+end
 
 enabled.diagnostic = function()
 	return #vim.lsp.buf_get_clients() > 0
@@ -275,6 +283,18 @@ colors.file = function(piece, state)
 end
 
 colors.extension = function(piece, state)
+	local back = { "Base", "Fifth" }
+	local fore = { "Case", "Fifth" }
+
+	if state == "inactive" then
+		back = { "Base", "Fourth" }
+		fore = { "Base", "Tenth" }
+	end
+
+	return colors.colors(piece, back, fore, state)
+end
+
+colors.git = function(piece, state)
 	local back = { "Base", "Fifth" }
 	local fore = { "Case", "Fifth" }
 
@@ -524,6 +544,28 @@ providers.extension = {
 	}),
 }
 
+----- Git
+providers.git = {
+	active = providers.constructor({
+		provider = { "git" },
+		enabled = "git",
+		color = "git",
+		state = "active",
+		region = "left",
+		side = "middle",
+		priority = 3,
+	}),
+	inactive = providers.constructor({
+		provider = { "git" },
+		enabled = "git",
+		color = "git",
+		state = "inactive",
+		region = "left",
+		side = "middle",
+		priority = 3,
+	}),
+}
+
 ----- Path Provider
 providers.path = {
 	active = providers.constructor({
@@ -619,6 +661,7 @@ local statusline = {
 			providers.mode["active"],
 			providers.file["active"],
 			providers.extension["active"],
+			providers.git["active"],
 		},
 		-- middle
 		{
@@ -637,6 +680,7 @@ local statusline = {
 			providers.mode["inactive"],
 			providers.file["inactive"],
 			providers.extension["inactive"],
+			providers.git["inactive"],
 		},
 		-- middle
 		{
