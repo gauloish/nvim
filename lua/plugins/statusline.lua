@@ -130,9 +130,9 @@ end
 functions.git = function(length, state)
 	local branch = varbuffer("gitsigns_head")
 
-	local added = varglobal("gitsigns_status_dict")["added"]
-	local removed = varglobal("gitsigns_status_dict")["removed"]
-	local changed = varglobal("gitsigns_status_dict")["changed"]
+	local added = varbuffer("gitsigns_status_dict")["added"]
+	local removed = varbuffer("gitsigns_status_dict")["removed"]
+	local changed = varbuffer("gitsigns_status_dict")["changed"]
 
 	return (" %s +%s -%s ~%s"):format(branch, added, removed, changed)
 end
@@ -295,8 +295,8 @@ colors.extension = function(piece, state)
 end
 
 colors.git = function(piece, state)
-	local back = { "Base", "Fifth" }
-	local fore = { "Case", "Fifth" }
+	local back = { "Base", "Fourth" }
+	local fore = { "Case", "Tenth" }
 
 	if state == "inactive" then
 		back = { "Base", "Fourth" }
