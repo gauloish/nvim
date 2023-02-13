@@ -2,36 +2,40 @@
 
 require("interface")
 
+local themes = require("tools/themes")
+
 ---------- Windows Functions
 
 local windows = {}
 
 function windows.colors()
-	highlight("StatusLine", { link = "BaseThirdBelow", clear = true })
-	highlight("StatusLineNC", { link = "BaseThirdBelowBaseThirdAbove", clear = true })
+	local palette = themes.colors()
 
-	highlight("VertSplit", { link = "BaseThirdBelowBaseFirstAbove", clear = true })
-	highlight("WinSeparator", { link = "BaseThirdBelowBaseFirstAbove", clear = true })
-	highlight("EndOfBuffer", { link = "BaseSixthAbove", clear = true })
+	highlight("StatusLine", { bg = palette.base[3], clear = true })
+	highlight("StatusLineNC", { bg = palette.base[3], fg = palette.base[3], clear = true })
 
-	highlight("CursorLine", { link = "BaseFourthBelow", clear = true })
-	highlight("CursorLineNr", { link = "BaseThirdBelow", clear = true })
+	highlight("VertSplit", { bg = palette.base[3], fg = palette.base[1], clear = true })
+	highlight("WinSeparator", { bg = palette.base[3], fg = palette.base[1], clear = true })
+	highlight("EndOfBuffer", { fg = palette.base[6], clear = true })
 
-	highlight("SignColumn", { link = "BaseThirdBelow", clear = true })
+	highlight("CursorLine", { bg = palette.base[4], clear = true })
+	highlight("CursorLineNr", { bg = palette.base[3], clear = true })
 
-	highlight("Visual", { link = "BaseFifthBelow", clear = true })
+	highlight("SignColumn", { bg = palette.base[3], clear = true })
 
-	highlight("FoldColumn", { link = "BaseThirdBelowBaseEighthAbove", clear = true })
+	highlight("Visual", { bg = palette.base[5], clear = true })
 
-	highlight("Pmenu", { link = "BaseThirdBelowCaseThirdAbove", clear = true })
-	highlight("PmenuSel", { link = "BlueSecondBelowBaseFifthAbove", clear = true })
-	highlight("PmenuSbar", { link = "BaseFifthBelow", clear = true })
-	highlight("PmenuThumb", { link = "BaseSeventhBelow", clear = true })
+	highlight("FoldColumn", { bg = palette.base[3], fg = palette.case[8], clear = true })
 
-	highlight("FloatBorder", { link = "BaseTenthAbove", clear = true })
-	highlight("NormalFloat", { link = "BaseThirdAboveCaseThirdAbove", clear = true })
+	highlight("Pmenu", { bg = palette.base[3], fg = palette.case[3], clear = true })
+	highlight("PmenuSel", { bg = palette.blue[2], fg = palette.base[5], clear = true })
+	highlight("PmenuSbar", { bg = palette.base[5], clear = true })
+	highlight("PmenuThumb", { bg = palette.base[7], clear = true })
 
-	highlight("Search", { link = "BaseSixthBelow" })
+	highlight("FloatBorder", { fg = palette.case[10], clear = true })
+	highlight("NormalFloat", { bg = palette.base[3], fg = palette.case[3], clear = true })
+
+	highlight("Search", { bg = palette.base[6], clear = true })
 end
 
 function windows.cursor(value)
