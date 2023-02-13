@@ -4,6 +4,7 @@ require("interface")
 require("general")
 
 local icons = require("tools/icons")
+local themes = require("tools/themes")
 
 local buffers = {}
 
@@ -23,6 +24,15 @@ buffers.length = {
 }
 
 buffers.value = -1
+
+buffers.colors = function()
+	return {
+		Normal = { fg = themes.colors()["case"][3] },
+		FloatBorder = { fg = themes.colors()["case"][3] },
+		CursorLine = { bg = themes.colors()["base"][5] },
+		Search = { fg = themes.colors()["green"][2] },
+	}
+end
 
 function buffers.add(text)
 	buffers.lines[#buffers.lines + 1] = text
@@ -225,18 +235,18 @@ function buffers.create()
 		row = (height - buffers.height) / 2,
 	})
 
-	vim.api.nvim_win_set_option(buffers.window, "winhl", "Normal:CaseThirdAbove," .. "FloatBorder:CaseThirdAbove," .. "CursorLine:BaseFifthBelow," .. "Search:GreenSecondAbove")
+	setwindow("winhl", buffers.colors(), buffers.window)
 
 	vim.api.nvim_buf_set_lines(buffers.buffer, 0, -1, false, buffers.lines)
 
-	vim.api.nvim_buf_set_option(buffers.buffer, "swapfile", false)
-	vim.api.nvim_buf_set_option(buffers.buffer, "buflisted", false)
+	setbuffer("swapfile", false, buffers.buffer)
+	setbuffer("buflisted", false, buffers.buffer)
 
-	vim.api.nvim_buf_set_option(buffers.buffer, "filetype", "Buffers")
-	vim.api.nvim_buf_set_option(buffers.buffer, "syntax", "buffers")
+	setbuffer("filetype", "Buffers", buffers.buffer)
+	setbuffer("syntax", "buffers", buffers.buffer)
 
-	vim.api.nvim_buf_set_option(buffers.buffer, "modified", false)
-	vim.api.nvim_buf_set_option(buffers.buffer, "modifiable", false)
+	setbuffer("modified", false, buffers.buffer)
+	setbuffer("modifiable", false, buffers.buffer)
 
 	local close = function()
 		vim.api.nvim_win_close(buffers.window, {})
@@ -250,13 +260,17 @@ function buffers.create()
 	end
 end
 
+buffers.remove = function()
+	vim.api.nvim_win_close(buffers.window, {})
+	vim.api.nvim_buf_delete(buffers.buffer, {})
+
+	buffers.buffer = -1
+	buffers.window = -1
+end
+
 function buffers.toggle()
 	if eval["bufexists"](buffers.buffer) == 1 then
-		vim.api.nvim_win_close(buffers.window, {})
-		vim.api.nvim_buf_delete(buffers.buffer, {})
-
-		buffers.buffer = -1
-		buffers.window = -1
+		buffers.remove()
 	else
 		buffers.create()
 	end
