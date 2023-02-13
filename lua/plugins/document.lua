@@ -1,4 +1,4 @@
--------------- Document Configuration ---------------
+--------------- Document ---------------
 
 require("interface")
 
@@ -45,6 +45,8 @@ end
 document.setup({
 	snippet_engine = "luasnip",
 })
+
+---------- Document Mappings
 
 nnoremap("<a-d>f", generate["function"], { silent = true, desc = "Generate Function Documentation" })
 nnoremap("<a-d>c", generate["class"], { silent = true, desc = "Generate Class Documentation" })

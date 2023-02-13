@@ -1,4 +1,4 @@
--------------- Scroll Configuration --------------
+--------------- Scroll ---------------
 
 require("interface")
 
@@ -25,6 +25,8 @@ scroll.setup({
 	respect_scrolloff = false,
 	cursor_scrolls_alone = true,
 })
+
+---------- Scroll Mappings
 
 -- Syntax: t[keys] = {function, {function arguments}}
 local maps = {

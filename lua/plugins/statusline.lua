@@ -202,27 +202,33 @@ end
 
 local colors = {}
 
-colors.highlight = function(highlight)
-	local below = highlight["back"][1] .. highlight["back"][2]
-	local above = highlight["fore"][1] .. highlight["fore"][2]
+colors.palette = components()["colors"]
 
-	return below .. "Below" .. above .. "Above"
+colors.update = function()
+	colors.palette = themes.colors()
 end
 
-colors.colors = function(piece, back, fore, state)
+colors.highlight = function(highlight)
+	return {
+		bg = highlight["back"],
+		fg = highlight["fore"],
+	}
+end
+
+colors.colors = function(piece, group, state)
 	local base = {
-		active = { "Base", "Third" },
-		inactive = { "Base", "Third" },
+		active = colors.palette["base"][3],
+		inactive = colors.palette["base"][3],
 	}
 
 	local pieces = {
 		content = {
-			back = back,
-			fore = fore,
+			back = group["back"],
+			fore = group["fore"],
 		},
 		separator = {
 			back = base[state],
-			fore = back,
+			fore = group["back"],
 		},
 	}
 
@@ -233,134 +239,159 @@ colors.mode = function(piece, state)
 	local mode = eval["mode"]()
 
 	local modes = {
-		["n"] = "Green",
-		["i"] = "Yellow",
-		["v"] = "Blue",
-		[""] = "Blue",
-		["s"] = "Magenta",
-		["r"] = "Magenta",
-		["c"] = "Cyan",
-		["t"] = "Green",
+		["n"] = "green",
+		["i"] = "yellow",
+		["v"] = "blue",
+		[""] = "blue",
+		["s"] = "magenta",
+		["r"] = "magenta",
+		["c"] = "cyan",
+		["t"] = "green",
 	}
 
 	mode = mode:sub(1):lower()
 
-	local back = { modes[mode], "Second" }
-	local fore = { "Base", "First" }
+	local groups = {
+		active = {
+			back = colors.palette[modes[mode]][2],
+			fore = colors.palette["base"][2],
+		},
+		inactive = {
+			back = colors.palette["base"][10],
+			fore = colors.palette["base"][2],
+		},
+	}
 
-	if state == "inactive" then
-		back = { "Base", "Tenth" }
-	end
-
-	return colors.colors(piece, back, fore, state)
+	return colors.colors(piece, groups[state], state)
 end
 
 colors.file = function(piece, state)
 	local mode = eval["mode"]()
 
 	local modes = {
-		["n"] = "Green",
-		["i"] = "Yellow",
-		["v"] = "Blue",
-		[""] = "Blue",
-		["s"] = "Magenta",
-		["r"] = "Magenta",
-		["c"] = "Cyan",
-		["t"] = "Green",
+		["n"] = "green",
+		["i"] = "yellow",
+		["v"] = "blue",
+		[""] = "blue",
+		["s"] = "magenta",
+		["r"] = "magenta",
+		["c"] = "cyan",
+		["t"] = "green",
 	}
 
 	mode = mode:sub(1):lower()
 
-	local back = { "Base", "Fifth" }
-	local fore = { modes[mode], "Second" }
+	local groups = {
+		active = {
+			back = colors.palette["base"][5],
+			fore = colors.palette[modes[mode]][2],
+		},
+		inactive = {
+			back = colors.palette["base"][4],
+			fore = colors.palette["base"][10],
+		},
+	}
 
-	if state == "inactive" then
-		back = { "Base", "Fourth" }
-		fore = { "Base", "Tenth" }
-	end
-
-	return colors.colors(piece, back, fore, state)
+	return colors.colors(piece, groups[state], state)
 end
 
 colors.extension = function(piece, state)
-	local back = { "Base", "Fifth" }
-	local fore = { "Case", "Fifth" }
+	local groups = {
+		active = {
+			back = colors.palette["base"][5],
+			fore = colors.palette["case"][5],
+		},
+		inactive = {
+			back = colors.palette["base"][4],
+			fore = colors.palette["case"][10],
+		},
+	}
 
-	if state == "inactive" then
-		back = { "Base", "Fourth" }
-		fore = { "Base", "Tenth" }
-	end
-
-	return colors.colors(piece, back, fore, state)
+	return colors.colors(piece, groups[state], state)
 end
 
 colors.git = function(piece, state)
-	local back = { "Base", "Fourth" }
-	local fore = { "Case", "Tenth" }
+	local groups = {
+		active = {
+			back = colors.palette["base"][4],
+			fore = colors.palette["case"][10],
+		},
+		inactive = {
+			back = colors.palette["base"][4],
+			fore = colors.palette["base"][10],
+		},
+	}
 
-	if state == "inactive" then
-		back = { "Base", "Fourth" }
-		fore = { "Base", "Tenth" }
-	end
-
-	return colors.colors(piece, back, fore, state)
+	return colors.colors(piece, groups[state], state)
 end
 
 colors.path = function(piece, state)
-	local back = { "Base", "Third" }
-	local fore = { "Base", "Seventh" }
+	local group = {
+		back = colors.palette["base"][3],
+		fore = colors.palette["base"][7],
+	}
 
-	return colors.colors(piece, back, fore, state)
+	return colors.colors(piece, group, state)
 end
 
 colors.diagnostic = function(piece, state)
-	local back = { "Base", "Fifth" }
-	local fore = { "Case", "Fifth" }
+	local groups = {
+		active = {
+			back = colors.palette["base"][5],
+			fore = colors.palette["case"][5],
+		},
+		inactive = {
+			back = colors.palette["base"][4],
+			fore = colors.palette["base"][10],
+		},
+	}
 
-	if state == "inactive" then
-		back = { "Base", "Fourth" }
-		fore = { "Base", "Tenth" }
-	end
-
-	return colors.colors(piece, back, fore, state)
+	return colors.colors(piece, groups[state], state)
 end
 
 colors.position = function(piece, state)
-	local back = { "Base", "Fifth" }
-	local fore = { "Case", "Fifth" }
+	local groups = {
+		active = {
+			back = colors.palette["base"][5],
+			fore = colors.palette["case"][5],
+		},
+		inactive = {
+			back = colors.palette["base"][4],
+			fore = colors.palette["case"][10],
+		},
+	}
 
-	if state == "inactive" then
-		back = { "Base", "Fourth" }
-		fore = { "Base", "Tenth" }
-	end
-
-	return colors.colors(piece, back, fore, state)
+	return colors.colors(piece, groups[state], state)
 end
 
 colors.progress = function(piece, state)
 	local mode = eval["mode"]()
 
 	local modes = {
-		["n"] = "Green",
-		["i"] = "Yellow",
-		["v"] = "Blue",
-		[""] = "Blue",
-		["s"] = "Magenta",
-		["r"] = "Magenta",
-		["c"] = "Cyan",
-		["t"] = "Green",
+		["n"] = "green",
+		["i"] = "yellow",
+		["v"] = "blue",
+		[""] = "blue",
+		["s"] = "magenta",
+		["r"] = "magenta",
+		["c"] = "cyan",
+		["t"] = "green",
 	}
 
 	mode = mode:sub(1):lower()
 
-	local back = { modes[mode], "Second" }
-	local fore = { "Base", "First" }
+	local groups = {
+		active = {
+			back = colors.palette[modes[mode]][2],
+			fore = colors.palette["base"][1],
+		},
+		inactive = {
+			back = colors.palette["base"][10],
+			fore = colors.palette["base"][1],
+		},
+	}
 
-	if state == "inactive" then
-		back = { "Base", "Tenth" }
-	end
-
-	return colors.colors(piece, back, fore, state)
+	return colors.colors(piece, groups[state], state)
 end
 
 ----- Separators Functions -----
@@ -694,6 +725,14 @@ local statusline = {
 		},
 	},
 }
+
+----------- Status Line Auto Commands
+
+augroup("StatusLineColors")
+do
+	autocmd("StatusLineColors", "ColorScheme", "*", colors.update)
+	autocmd("StatusLineColors", "VimEnter", "*", colors.update)
+end
 
 ----------- Status Line Setup
 

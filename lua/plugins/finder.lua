@@ -1,4 +1,4 @@
---------------- Telescope Configuration ---------------
+--------------- Finder ---------------
 
 require("interface")
 
@@ -84,28 +84,28 @@ function actions(action)
 end
 
 local function colors()
-	themes.verify["update"]()
+	local palette = themes.colors()
 
-	highlight("TelescopeSelection", { link = "BaseFourthBelow" })
-	highlight("TelescopeSelectionCaret", { link = "BaseFourthBelow" })
+	highlight("TelescopeSelection", { bg = palette.base[4] }) -- link = "BaseFourthBelow" })
+	highlight("TelescopeSelectionCaret", { bg = palette.base[4] }) -- link = "BaseFourthBelow" })
 
-	highlight("TelescopePreviewNormal", { link = "BaseThirdBelow" })
-	highlight("TelescopeResultsNormal", { link = "BaseThirdBelow" })
-	highlight("TelescopePromptNormal", { link = "BaseThirdBelow" })
+	highlight("TelescopePreviewNormal", { bg = palette.base[3] }) -- link = "BaseThirdBelow" })
+	highlight("TelescopeResultsNormal", { bg = palette.base[3] }) -- link = "BaseThirdBelow" })
+	highlight("TelescopePromptNormal", { bg = palette.base[3] }) -- link = "BaseThirdBelow" })
 
-	highlight("TelescopeTitle", { link = "CaseFirstAbove" })
-	highlight("TelescopePreviewTitle", { link = "CaseFirstAbove" })
-	highlight("TelescopeResultsTitle", { link = "CaseFirstAbove" })
-	highlight("TelescopePromptTitle", { link = "CaseFirstAbove" })
+	highlight("TelescopeTitle", { fg = palette.case[1] }) -- link = "CaseFirstAbove" })
+	highlight("TelescopePreviewTitle", { fg = palette.case[1] }) -- link = "CaseFirstAbove" })
+	highlight("TelescopeResultsTitle", { fg = palette.case[1] }) -- link = "CaseFirstAbove" })
+	highlight("TelescopePromptTitle", { fg = palette.case[1] }) -- link = "CaseFirstAbove" })
 
-	highlight("TelescopeBorder", { link = "BaseTenthAbove" })
-	highlight("TelescopePreviewBorder", { link = "BaseTenthAbove" })
-	highlight("TelescopeResultsBorder", { link = "BaseTenthAbove" })
-	highlight("TelescopePromptBorder", { link = "BaseTenthAbove" })
+	highlight("TelescopeBorder", { fg = palette.base[10] }) -- link = "BaseTenthAbove" })
+	highlight("TelescopePreviewBorder", { fg = palette.base[10] }) -- link = "BaseTenthAbove" })
+	highlight("TelescopeResultsBorder", { fg = palette.base[10] }) -- link = "BaseTenthAbove" })
+	highlight("TelescopePromptBorder", { fg = palette.base[10] }) -- link = "BaseTenthAbove" })
 
-	highlight("TelescopePromptPrefix", { link = "MagentaSecondAbove" })
+	highlight("TelescopePromptPrefix", { fg = palette.magenta[2] }) -- link = "MagentaSecondAbove" })
 
-	highlight("TelescopeMatching", { link = "CyanSecondAbove" })
+	highlight("TelescopeMatching", { fg = palette.cyan[2] }) -- link = "CyanSecondAbove" })
 end
 
 ---------- Finder Auto Commands
@@ -116,7 +116,7 @@ do
 	autocmd("TelescopeColors", "VimEnter", "*", colors)
 end
 
----------- Finder Maps
+---------- Finder Mappings
 
 nnoremap("ff", bundle(actions, "files"), { desc = "Open Telescope Files Finder" })
 nnoremap("fm", bundle(actions, "browser"), { desc = "Open Telescope File Browser" })

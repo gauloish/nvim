@@ -1,4 +1,4 @@
--------------- Search Box Configuration --------------
+--------------- Search Box ---------------
 
 require("interface")
 require("general")
@@ -13,7 +13,7 @@ end
 
 local box = modules("searchbox")
 
----------- Other Configuration
+---------- Search Box Functions
 
 local function search(sense, state)
 	local values = {
@@ -52,6 +52,8 @@ local function replace(state)
 		prompt = "  ",
 	})
 end
+
+---------- Search Box Setup
 
 box.setup({
 	defaults = {
@@ -106,6 +108,8 @@ box.setup({
 		end,
 	},
 })
+
+---------- Search Box Mappings
 
 nnoremap("sc", ":SearchBoxClear<cr>", { silent = true, desc = "Clear Search Highlight" })
 

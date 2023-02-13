@@ -1,4 +1,4 @@
---------------- Tab and Buffer Line Configuration ---------------
+--------------- Tab and Buffer Line ---------------
 
 require("interface")
 require("utils")
@@ -18,14 +18,43 @@ end
 
 local tabby = modules("tabby.tabline")
 
------ Tabline Setup -----
+---------- Tab and Buffer Line Functions ----------
 
 local colors = {
-	fill = "BaseThirdBelow",
-	head = "CaseThirdBelowBaseThirdAbove",
-	block = "BaseFourthBelowBaseTenthAbove",
-	current = "BaseSixthBelowCaseFifthAbove",
+	fill = {
+		bg = components()["colors"]["base"][3],
+	},
+	head = {
+		bg = components()["colors"]["case"][3],
+		fg = components()["colors"]["base"][3],
+	},
+	block = {
+		bg = components()["colors"]["base"][4],
+		fg = components()["colors"]["base"][10],
+	},
+	current = {
+		bg = components()["colors"]["base"][6],
+		fg = components()["colors"]["case"][5],
+	},
 }
+
+colors.update = function()
+	colors.fill = {
+		bg = themes.colors()["base"][3],
+	}
+	colors.head = {
+		bg = themes.colors()["case"][3],
+		fg = themes.colors()["base"][3],
+	}
+	colors.block = {
+		bg = themes.colors()["base"][4],
+		fg = themes.colors()["base"][10],
+	}
+	colors.current = {
+		bg = themes.colors()["base"][6],
+		fg = themes.colors()["case"][5],
+	}
+end
 
 local tabline = {}
 
@@ -247,5 +276,15 @@ tabline.options = {
 		mode = "unique", -- 'tail'
 	},
 }
+
+---------- Tab and Buffer Line Auto Commands ----------
+
+augroup("TabBufferLineColors")
+do
+	autocmd("TabBufferLineColors", "ColorScheme", "*", colors.update)
+	autocmd("TabBufferLineColors", "VimEnter", "*", colors.update)
+end
+
+---------- Tab and Buffer Line Functions ----------
 
 tabby.set(tabline.renderer, tabline.options)

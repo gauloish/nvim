@@ -1,4 +1,4 @@
--------------- Comment Configuration ---------------
+--------------- Comment ---------------
 
 require("interface")
 
@@ -12,7 +12,7 @@ end
 
 local comment = modules("Comment")
 
----------- Comment Configurations
+---------- Comment Setup
 
 comment.setup({
 	padding = true,

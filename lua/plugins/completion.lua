@@ -1,4 +1,4 @@
--------------- Completion Configuration --------------
+--------------- Completion ---------------
 
 require("interface")
 require("general")
@@ -161,54 +161,54 @@ completion.setup({
 	},
 })
 
----------- Completion Functions
-
 completion.event:on("confirm_done", autopairs.on_confirm_done())
 
+---------- Completion Functions
+
 local function colors()
-	themes.verify["update"]()
+	local palette = themes.colors()
 
 	-- Completion Menu
-	highlight("CmpItemAbbr", { link = "CaseThirdAbove" })
-	highlight("CmpItemAbbrDeprecated", { link = "CaseTenthAbove" })
-	highlight("CmpItemAbbrMatch", { link = "CyanSecondAbove" })
-	highlight("CmpItemAbbrMatchFuzzy", { link = "CyanSecondAbove" })
-	highlight("CmpItemKind", { link = "MagentaSecondAbove" })
-	highlight("CmpItemMenu", { link = "BaseEighthAbove" })
-	highlight("CmpItemSelected", { link = "BaseFifthBelow" })
+	highlight("CmpItemAbbr", { fg = palette.case[3] })
+	highlight("CmpItemAbbrDeprecated", { fg = palette.case[10] })
+	highlight("CmpItemAbbrMatch", { fg = palette.cyan[2] })
+	highlight("CmpItemAbbrMatchFuzzy", { fg = palette.cyan[2] })
+	highlight("CmpItemKind", { fg = palette.magenta[2] })
+	highlight("CmpItemMenu", { fg = palette.base[8] })
+	highlight("CmpItemSelected", { bg = palette.base[5] })
 
 	-- Kind Icons
-	highlight("CmpItemKindClass", { link = "GreenSecondAbove" })
-	highlight("CmpItemKindEnum", { link = "GreenSecondAbove" })
-	highlight("CmpItemKindStruct", { link = "GreenSecondAbove" })
-	highlight("CmpItemKindInterface", { link = "GreenSecondAbove" })
-	highlight("CmpItemKindConstructor", { link = "GreenSecondAbove" })
+	highlight("CmpItemKindClass", { fg = palette.green[2] })
+	highlight("CmpItemKindEnum", { fg = palette.green[2] })
+	highlight("CmpItemKindStruct", { fg = palette.green[2] })
+	highlight("CmpItemKindInterface", { fg = palette.green[2] })
+	highlight("CmpItemKindConstructor", { fg = palette.green[2] })
 
-	highlight("CmpItemKindMember", { link = "BlueSecondAbove" })
-	highlight("CmpItemKindMethod", { link = "BlueSecondAbove" })
-	highlight("CmpItemKindField", { link = "BlueSecondAbove" })
-	highlight("CmpItemKindEnumMember", { link = "BlueSecondAbove" })
-	highlight("CmpItemKindProperty", { link = "BlueSecondAbove" })
-	highlight("CmpItemKindEvent", { link = "BlueSecondAbove" })
-	highlight("CmpItemKindOperator", { link = "BlueSecondAbove" })
-	highlight("CmpItemKindFunction", { link = "BlueSecondAbove" })
+	highlight("CmpItemKindMember", { fg = palette.blue[2] })
+	highlight("CmpItemKindMethod", { fg = palette.blue[2] })
+	highlight("CmpItemKindField", { fg = palette.blue[2] })
+	highlight("CmpItemKindEnumMember", { fg = palette.blue[2] })
+	highlight("CmpItemKindProperty", { fg = palette.blue[2] })
+	highlight("CmpItemKindEvent", { fg = palette.blue[2] })
+	highlight("CmpItemKindOperator", { fg = palette.blue[2] })
+	highlight("CmpItemKindFunction", { fg = palette.blue[2] })
 
-	highlight("CmpItemKindModule", { link = "YellowSecondAbove" })
-	highlight("CmpItemKindReference", { link = "YellowSecondAbove" })
-	highlight("CmpItemKindKeyword", { link = "YellowSecondAbove" })
-	highlight("CmpItemKindText", { link = "YellowSecondAbove" })
+	highlight("CmpItemKindModule", { fg = palette.yellow[2] })
+	highlight("CmpItemKindReference", { fg = palette.yellow[2] })
+	highlight("CmpItemKindKeyword", { fg = palette.yellow[2] })
+	highlight("CmpItemKindText", { fg = palette.yellow[2] })
 
-	highlight("CmpItemKindType", { link = "CyanSecondAbove" })
-	highlight("CmpItemKindTypeParameter", { link = "CyanSecondAbove" })
-	highlight("CmpItemKindUnit", { link = "CyanSecondAbove" })
-	highlight("CmpItemKindValue", { link = "CyanSecondAbove" })
-	highlight("CmpItemKindVariable", { link = "CyanSecondAbove" })
-	highlight("CmpItemKindConstant", { link = "CyanSecondAbove" })
-	highlight("CmpItemKindColor", { link = "CyanSecondAbove" })
+	highlight("CmpItemKindType", { fg = palette.cyan[2] })
+	highlight("CmpItemKindTypeParameter", { fg = palette.cyan[2] })
+	highlight("CmpItemKindUnit", { fg = palette.cyan[2] })
+	highlight("CmpItemKindValue", { fg = palette.cyan[2] })
+	highlight("CmpItemKindVariable", { fg = palette.cyan[2] })
+	highlight("CmpItemKindConstant", { fg = palette.cyan[2] })
+	highlight("CmpItemKindColor", { fg = palette.cyan[2] })
 
-	highlight("CmpItemKindFile", { link = "MagentaSecondAbove" })
-	highlight("CmpItemKindFolder", { link = "MagentaSecondAbove" })
-	highlight("CmpItemKindSnippet", { link = "MagentaSecondAbove" })
+	highlight("CmpItemKindFile", { fg = palette.magenta[2] })
+	highlight("CmpItemKindFolder", { fg = palette.magenta[2] })
+	highlight("CmpItemKindSnippet", { fg = palette.magenta[2] })
 end
 
 ---------- Completion Auto Commands

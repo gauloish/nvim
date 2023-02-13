@@ -1,4 +1,4 @@
--------------- Plugin Configuration ---------------
+--------------- Fold ---------------
 
 require("interface")
 
@@ -12,7 +12,7 @@ end
 
 local fold = modules("ufo")
 
----------- Other Configurations
+---------- Fold Functions
 
 local handler = function(texts, first, second, width, truncate)
 	local line = eval["line"](".")
@@ -48,7 +48,7 @@ local handler = function(texts, first, second, width, truncate)
 		group = "Comment"
 	end
 
-	table.insert(texts, { " ... ", "BaseTenthAbove" })
+	table.insert(texts, { " ... ", "Comment" })
 	table.insert(texts, { text, group })
 
 	eval["cursor"](line, column)
@@ -64,6 +64,8 @@ local folding = function()
 
 	eval["cursor"](line, column)
 end
+
+---------- Fold Setup
 
 fold.setup({
 	fold_virt_text_handler = handler,
@@ -84,6 +86,8 @@ fold.setup({
 		},
 	},
 })
+
+---------- Fold Mappings
 
 nnoremap("<a-f>f", folding)
 

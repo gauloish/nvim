@@ -1,6 +1,6 @@
--------------- Plugin Configuration ---------------
+--------------- [Plugin] ---------------
 
-require(...)
+-- require(...)
 
 ---------- Verification Step
 
@@ -12,8 +12,18 @@ end
 
 local module = modules(...)
 
----------- Other Configurations
+---------- [Plugin] Setup
 
---[[
-...
---]]
+-- Setup
+
+---------- [Plugin] Functions
+
+-- Functions
+
+---------- [Plugin] Auto Commands
+
+-- Auto Commands
+
+---------- [Plugin] Mappings
+
+-- Mappings

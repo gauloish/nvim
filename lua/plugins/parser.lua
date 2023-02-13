@@ -1,4 +1,4 @@
---------------- Tree Sitter Configuration
+--------------- Tree Sitter ---------------
 
 require("interface")
 

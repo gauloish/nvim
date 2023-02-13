@@ -1,4 +1,4 @@
---------------- Language Servers Configuration ---------------
+--------------- Language Servers ---------------
 
 require("interface")
 
@@ -98,24 +98,24 @@ diagnostic.config({
 ---------- Language Servers Functions
 
 local function colors()
-	themes.verify["update"]()
+	local colors = themes.colors()
 
 	local signs = {
 		Error = {
 			icon = " ▎", --" ",
-			color = "Red",
+			color = "red",
 		},
 		Warn = {
 			icon = " ▎", --" ",
-			color = "Yellow",
+			color = "yellow",
 		},
 		Hint = {
 			icon = " ▎", --" ",
-			color = "Green",
+			color = "green",
 		},
 		Info = {
 			icon = " ▎", --" "
-			color = "Blue",
+			color = "blue",
 		},
 	}
 
@@ -125,17 +125,17 @@ local function colors()
 		local icon = content["icon"]
 		local color = content["color"]
 
-		local group = color .. "SecondAbove"
-
 		for _, place in pairs(places) do
-			highlight("Diagnostic" .. place .. sign, { link = group })
+			highlight("Diagnostic" .. place .. sign, { fg = colors[color][2] })
 		end
+
+		local group = "Diagnostic" .. sign
 
 		eval["sign_define"]("DiagnosticSign" .. sign, { text = icon, texthl = group, numhl = group })
 	end
 
 	for sign, content in pairs(signs) do
-		local color = components()["colors"][string.lower(content["color"])][2]
+		local color = colors[content["color"]][2]
 		local group = "DiagnosticUnderline" .. sign
 
 		highlight(group, { sp = color, underline = true })

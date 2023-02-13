@@ -1,4 +1,4 @@
--------------- File Explorer Configuration --------------
+--------------- File Explorer ---------------
 
 require("interface")
 require("general")
@@ -146,36 +146,36 @@ local function resize()
 end
 
 local function colors()
-	themes.verify["update"]()
+	local palette = themes.colors()
 
-	highlight("NvimTreeSymlink", { link = "BaseTenthAbove", clear = true })
-	highlight("NvimTreeFolderName", { link = "BaseTenthAbove", clear = true })
-	highlight("NvimTreeFolderIcon", { link = "BaseTenthAbove", clear = true })
-	highlight("NvimTreeFileIcon", { link = "BaseTenthAbove", clear = true })
-	highlight("NvimTreeRootFolder", { link = "BaseTenthAbove", clear = true })
-	highlight("NvimTreeEmptyFolderName", { link = "BaseEighthAbove", clear = true })
-	highlight("NvimTreeOpenedFolderName", { link = "CaseFifthAbove", clear = true })
-	highlight("NvimTreeOpenedFile", { link = "CaseFifthAbove", clear = true })
-	highlight("NvimTreeExecFile", { link = "BlueSecondAbove", clear = true })
-	highlight("NvimTreeSpecialFile", { link = "MagentaSecondAbove", clear = true })
-	highlight("NvimTreeImageFile", { link = "BaseTenthAbove", clear = true })
-	highlight("NvimTreeMarkdownFile", { link = "BaseTenthAbove", clear = true })
-	highlight("NvimTreeIndentMarker", { link = "BaseFifthAbove", clear = true })
+	highlight("NvimTreeSymlink", { fg = palette.base[10], clear = true }) -- link = "BaseTenthAbove", clear = true })
+	highlight("NvimTreeFolderName", { fg = palette.base[10], clear = true }) -- link = "BaseTenthAbove", clear = true })
+	highlight("NvimTreeFolderIcon", { fg = palette.base[10], clear = true }) -- link = "BaseTenthAbove", clear = true })
+	highlight("NvimTreeFileIcon", { fg = palette.base[10], clear = true }) -- link = "BaseTenthAbove", clear = true })
+	highlight("NvimTreeRootFolder", { fg = palette.base[10], clear = true }) -- link = "BaseTenthAbove", clear = true })
+	highlight("NvimTreeEmptyFolderName", { fg = palette.base[8], clear = true }) -- link = "BaseEighthAbove", clear = true })
+	highlight("NvimTreeOpenedFolderName", { fg = palette.case[5], clear = true }) -- link = "CaseFifthAbove", clear = true })
+	highlight("NvimTreeOpenedFile", { fg = palette.case[5], clear = true }) -- link = "CaseFifthAbove", clear = true })
+	highlight("NvimTreeExecFile", { fg = palette.blue[2], clear = true }) -- link = "BlueSecondAbove", clear = true })
+	highlight("NvimTreeSpecialFile", { fg = palette.magenta[2], clear = true }) -- link = "MagentaSecondAbove", clear = true })
+	highlight("NvimTreeImageFile", { fg = palette.base[10], clear = true }) -- link = "BaseTenthAbove", clear = true })
+	highlight("NvimTreeMarkdownFile", { fg = palette.base[10], clear = true }) -- link = "BaseTenthAbove", clear = true })
+	highlight("NvimTreeIndentMarker", { fg = palette.base[5], clear = true }) -- link = "BaseFifthAbove", clear = true })
 
-	highlight("NvimTreeNormal", { link = "BaseSecondBelowBaseTenthAbove" })
-	highlight("NvimTreeNormalNC", { link = "BaseSecondBelowBaseTenthAbove" })
-	highlight("NvimStatusLine", { link = "BaseSecondBelowBaseTenthAbove", clear = true })
-	highlight("NvimStatusLineNC", { link = "BaseSecondBelowBaseTenthAbove", clear = true })
-	highlight("NvimTreeWinSeparator", { link = "BaseThirdBelowBaseThirdAbove", clear = true })
-	highlight("NvimTreeEndOfBuffer", { link = "BaseSecondAbove", clear = true })
+	highlight("NvimTreeNormal", { bg = palette.base[2], fg = palette.base[10], clear = true }) -- link = "BaseSecondBelowBaseTenthAbove" })
+	highlight("NvimTreeNormalNC", { bg = palette.base[2], fg = palette.base[10], clear = true }) -- link = "BaseSecondBelowBaseTenthAbove" })
+	highlight("NvimStatusLine", { bg = palette.base[2], fg = palette.base[10], clear = true }) -- link = "BaseSecondBelowBaseTenthAbove", clear = true })
+	highlight("NvimStatusLineNC", { bg = palette.base[2], fg = palette.base[10], clear = true }) -- link = "BaseSecondBelowBaseTenthAbove", clear = true })
+	highlight("NvimTreeWinSeparator", { bg = palette.base[3], fg = palette.base[3], clear = true }) -- link = "BaseThirdBelowBaseThirdAbove", clear = true })
+	highlight("NvimTreeEndOfBuffer", { fg = palette.base[2], clear = true }) -- link = "BaseSecondAbove", clear = true })
 
-	highlight("NvimTreeGitDirty", { link = "BlueSecondAbove", clear = true })
-	highlight("NvimTreeGitStaged", { link = "GreenSecondAbove", clear = true })
-	highlight("NvimTreeGitMerge", { link = "YellowSecondAbove", clear = true })
-	highlight("NvimTreeGitRenamed", { link = "MagentaSecondAbove", clear = true })
-	highlight("NvimTreeGitNew", { link = "CyanSecondAbove", clear = true })
-	highlight("NvimTreeGitDeleted", { link = "RedSecondAbove", clear = true })
-	highlight("NvimTreeGitIgnored", { link = "BaseTenthAbove", clear = true })
+	highlight("NvimTreeGitDirty", { fg = palette.blue[2], clear = true }) -- link = "BlueSecondAbove", clear = true })
+	highlight("NvimTreeGitStaged", { fg = palette.green[2], clear = true }) -- link = "GreenSecondAbove", clear = true })
+	highlight("NvimTreeGitMerge", { fg = palette.yellow[2], clear = true }) -- link = "YellowSecondAbove", clear = true })
+	highlight("NvimTreeGitRenamed", { fg = palette.magenta[2], clear = true }) -- link = "MagentaSecondAbove", clear = true })
+	highlight("NvimTreeGitNew", { fg = palette.cyan[2], clear = true }) -- link = "CyanSecondAbove", clear = true })
+	highlight("NvimTreeGitDeleted", { fg = palette.red[2], clear = true }) -- link = "RedSecondAbove", clear = true })
+	highlight("NvimTreeGitIgnored", { fg = palette.base[10], clear = true }) -- link = "BaseTenthAbove", clear = true })
 
 	highlight("NvimTreeFileDirty", { link = "NvimTreeGitDirty", clear = true })
 	highlight("NvimTreeFileStaged", { link = "NvimTreeGitStaged", clear = true })
@@ -185,9 +185,7 @@ local function colors()
 	highlight("NvimTreeFileDeleted", { link = "NvimTreeGitDeleted", clear = true })
 	highlight("NvimTreeFileIgnored", { link = "NvimTreeGitIgnored", clear = true })
 
-	highlight("NvimTreeWindowPicker", { link = "BaseFifthBelowCaseFifthAbove", clear = true })
-
-	--execute("hi NvimTreeNormal")
+	highlight("NvimTreeWindowPicker", { bg = palette.base[5], fg = palette.case[5], clear = true }) -- link = "BaseFifthBelowCaseFifthAbove", clear = true })
 end
 
 local function rename()
@@ -216,6 +214,6 @@ do
 	autocmd("ExplorerRename", "BufEnter", "NvimTree_*", rename)
 end
 
----------- File Explorer Maps
+---------- File Explorer Mappings
 
 nnoremap("<a-e>", ":NvimTreeToggle <cr>", { silent = true })

@@ -1,4 +1,4 @@
--------------- Animation Configuration ---------------
+--------------- Animation ---------------
 
 require("interface")
 
@@ -12,7 +12,7 @@ end
 
 local animation = modules("cellular-automaton")
 
----------- Mappings to Animation
+---------- Animation Mappings
 
 nnoremap("<F5>", function()
 	animation.start_animation("make_it_rain")

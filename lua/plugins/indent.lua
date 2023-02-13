@@ -1,4 +1,4 @@
--------------- Indent Guides --------------
+--------------- Indent Guides ---------------
 
 require("interface")
 require("general")
@@ -15,7 +15,7 @@ end
 
 local indent = modules("indent_blankline")
 
----------- Indent Setup
+---------- Indent Guides Setup
 
 indent.setup({
 	show_current_context = true,
@@ -40,13 +40,13 @@ indent.setup({
 	},
 })
 
----------- Indent Functions
+---------- Indent Guides Functions
 
 local function colors()
-	themes.verify["update"]()
+	local palette = themes.colors()
 
-	highlight("IndentBlankLineChar", { link = "BaseFourthAbove" })
-	highlight("IndentBlankLineContextChar", { link = "BaseSixthAbove" })
+	highlight("IndentBlankLineChar", { fg = palette.base[4] }) -- link = "BaseFourthAbove" })
+	highlight("IndentBlankLineContextChar", { fg = palette.base[6] }) -- link = "BaseSixthAbove" })
 end
 
 local function delete()

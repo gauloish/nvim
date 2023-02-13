@@ -1,4 +1,4 @@
---------------- Wild Menu --------------
+--------------- Wild Menu ---------------
 
 require("interface")
 
@@ -14,7 +14,7 @@ end
 
 local wilder = modules("wilder")
 
----------- Wild Setup
+---------- Wild Menu Setup
 
 wilder.setup({
 	modes = { ":" },
@@ -88,18 +88,18 @@ wilder.set_option('renderer', wilder.popupmenu_renderer(
 ))
 --]]
 
----------- Wild Functions
+---------- Wild Menu Functions
 
 local colors = function()
-	themes.verify["update"]()
+	local palette = themes.colors()
 
-	highlight("WildDefault", { link = "BaseThirdBelowCaseThirdAbove" })
-	highlight("WildSelected", { link = "BaseFifthBelowCaseThirdAbove" })
-	highlight("WildAccent", { link = "BaseThirdBelowCyanSecondAbove" })
-	highlight("WildSelectedAccent", { link = "BaseFifthBelowCyanSecondAbove" })
+	highlight("WildDefault", { bg = palette.base[3], fg = palette.case[3] })
+	highlight("WildSelected", { bg = palette.base[5], fg = palette.case[3] })
+	highlight("WildAccent", { bg = palette.base[3], fg = palette.cyan[2] })
+	highlight("WildSelectedAccent", { bg = palette.base[5], fg = palette.cyan[2] })
 end
 
----------- Wild Auto Commands
+---------- Wild Menu Auto Commands
 
 augroup("WilderColors")
 do

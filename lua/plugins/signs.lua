@@ -1,4 +1,4 @@
--------------- Git Signs --------------
+--------------- Git Signs ---------------
 
 require("interface")
 
@@ -12,10 +12,9 @@ end
 
 local signs = modules("gitsigns")
 
----------- Scroll Setup
+---------- Git Signs Setup
 
 signs.setup({
-
 	signs = {
 		add = { text = "+" },
 		change = { text = "~" },
