@@ -32,7 +32,7 @@ function windows.colors()
 	highlight("PmenuSbar", { bg = palette.base[5], clear = true })
 	highlight("PmenuThumb", { bg = palette.base[7], clear = true })
 
-	highlight("FloatBorder", { fg = palette.case[10], clear = true })
+	highlight("FloatBorder", { fg = palette.base[10], clear = true })
 	highlight("NormalFloat", { bg = palette.base[3], fg = palette.case[3], clear = true })
 
 	highlight("Search", { bg = palette.base[6], clear = true })
