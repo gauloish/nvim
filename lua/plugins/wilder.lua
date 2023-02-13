@@ -33,7 +33,7 @@ wilder.set_option(
 			" ",
 			wilder.popupmenu_devicons({
 				get_hl = function(context, name, directory, icon)
-					return "CaseThirdAbove"
+					return "Normal"
 				end,
 			}),
 		},
@@ -43,7 +43,7 @@ wilder.set_option(
 		},
 		highlighter = wilder.basic_highlighter(),
 		highlights = {
-			border = "BaseTenthAbove",
+			border = "WildBorder",
 			default = "WildDefault",
 			selected = "WildSelected",
 			accent = "WildAccent",
@@ -93,6 +93,7 @@ wilder.set_option('renderer', wilder.popupmenu_renderer(
 local colors = function()
 	local palette = themes.colors()
 
+	highlight("WildBorder", { fg = palette.base[10] })
 	highlight("WildDefault", { bg = palette.base[3], fg = palette.case[3] })
 	highlight("WildSelected", { bg = palette.base[5], fg = palette.case[3] })
 	highlight("WildAccent", { bg = palette.base[3], fg = palette.cyan[2] })
