@@ -117,6 +117,11 @@ explorer.setup({
 		dotfiles = false,
 		custom = {},
 	},
+	git = {
+		enable = true,
+		ignore = false,
+		timeout = 500,
+	},
 })
 
 ---------- File Explorer Functions
