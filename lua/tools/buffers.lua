@@ -25,15 +25,6 @@ buffers.length = {
 
 buffers.value = -1
 
-buffers.colors = function()
-	return {
-		Normal = { fg = themes.colors()["case"][3] },
-		FloatBorder = { fg = themes.colors()["case"][3] },
-		CursorLine = { bg = themes.colors()["base"][5] },
-		Search = { fg = themes.colors()["green"][2] },
-	}
-end
-
 function buffers.add(text)
 	buffers.lines[#buffers.lines + 1] = text
 end
@@ -234,8 +225,6 @@ function buffers.create()
 		col = (width - buffers.width) / 2,
 		row = (height - buffers.height) / 2,
 	})
-
-	setwindow("winhl", buffers.colors(), buffers.window)
 
 	vim.api.nvim_buf_set_lines(buffers.buffer, 0, -1, false, buffers.lines)
 
