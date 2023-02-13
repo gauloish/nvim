@@ -1,3 +1,0 @@
-"lua require('modes').setup()
-
-
