@@ -283,74 +283,6 @@ themes.definitions = function()
 	return theme
 end
 
-themes.update = function()
-	themes.verify["color"]()
-
-	local colors = components()["colors"]
-
-	local path = eval["stdpath"]("config") .. "/files/colors/"
-
-	path = path .. themes.pieces["ground"] .. "-"
-	path = path .. themes.pieces["scheme"] .. "-"
-	path = path .. themes.pieces["variant"] .. ".txt"
-
-	local file = io.open(path)
-
-	if file then
-		file:close()
-
-		for data in io.lines(path) do
-			local parts = split(data)
-
-			local scheme = parts[1]
-			local number = tonumber(parts[2])
-			local color = parts[3]
-
-			colors[scheme][number] = color
-		end
-	else
-		file = io.open(path, "w")
-
-		if file then
-			for scheme, content in pairs(colors) do
-				for index, _ in pairs(content) do
-					local number = tostring(index)
-					local color = colors[scheme][index]
-
-					file:write(scheme .. " " .. number .. " " .. color, "\n")
-				end
-			end
-
-			file:close()
-		end
-	end
-
-	-- Setting Only Back and Fore Grounds Highlights
-	for scheme, content in pairs(colors) do
-		for index, color in pairs(content) do
-			local background = capitalize(scheme) .. capitalize(ordinal(index)) .. "Below"
-			local foreground = capitalize(scheme) .. capitalize(ordinal(index)) .. "Above"
-
-			highlight(background, { bg = color })
-			highlight(foreground, { fg = color })
-		end
-	end
-
-	-- Setting All Highlights
-	for first, left in pairs(colors) do
-		for one, background in pairs(left) do
-			for second, right in pairs(colors) do
-				for two, foreground in pairs(right) do
-					local below = capitalize(first) .. capitalize(ordinal(one)) .. "Below"
-					local above = capitalize(second) .. capitalize(ordinal(two)) .. "Above"
-
-					highlight(below .. above, { bg = background, fg = foreground })
-				end
-			end
-		end
-	end
-end
-
 themes.data = function()
 	return themes.pieces
 end
@@ -411,8 +343,6 @@ themes.scheme = function(ground, scheme, variant)
 end
 
 themes.theme = function(theme)
-	local time = os.clock()
-
 	varglobal("colors_update", false)
 
 	local ground = theme["ground"]
@@ -432,11 +362,8 @@ themes.theme = function(theme)
 	change(name, variant)
 
 	themes.set(theme)
-	--themes.update()
 
 	varglobal("colors_update", true)
-
-	print(("%fs to change theme."):format(os.clock() - time))
 end
 
 themes.configure = function()
