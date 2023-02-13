@@ -4,7 +4,6 @@ require("interface")
 require("general")
 
 local icons = require("tools/icons")
-local themes = require("tools/themes")
 
 local buffers = {}
 
