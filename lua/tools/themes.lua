@@ -411,6 +411,8 @@ themes.scheme = function(ground, scheme, variant)
 end
 
 themes.theme = function(theme)
+	local time = os.clock()
+
 	varglobal("colors_update", false)
 
 	local ground = theme["ground"]
@@ -433,6 +435,8 @@ themes.theme = function(theme)
 	themes.update()
 
 	varglobal("colors_update", true)
+
+	print(("%fs to change theme."):format(os.clock() - time))
 end
 
 themes.configure = function()
