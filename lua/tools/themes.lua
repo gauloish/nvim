@@ -432,7 +432,7 @@ themes.theme = function(theme)
 	change(name, variant)
 
 	themes.set(theme)
-	themes.update()
+	--themes.update()
 
 	varglobal("colors_update", true)
 
