@@ -93,12 +93,10 @@ local function colors()
 	highlight("TelescopeResultsNormal", { bg = palette.base[3] }) -- link = "BaseThirdBelow" })
 	highlight("TelescopePromptNormal", { bg = palette.base[3] }) -- link = "BaseThirdBelow" })
 
-	highlight("TelescopeTitle", { fg = palette.case[1] }) -- link = "CaseFirstAbove" })
 	highlight("TelescopePreviewTitle", { fg = palette.case[1] }) -- link = "CaseFirstAbove" })
 	highlight("TelescopeResultsTitle", { fg = palette.case[1] }) -- link = "CaseFirstAbove" })
 	highlight("TelescopePromptTitle", { fg = palette.case[1] }) -- link = "CaseFirstAbove" })
 
-	highlight("TelescopeBorder", { fg = palette.base[10] }) -- link = "BaseTenthAbove" })
 	highlight("TelescopePreviewBorder", { fg = palette.base[10] }) -- link = "BaseTenthAbove" })
 	highlight("TelescopeResultsBorder", { fg = palette.base[10] }) -- link = "BaseTenthAbove" })
 	highlight("TelescopePromptBorder", { fg = palette.base[10] }) -- link = "BaseTenthAbove" })
