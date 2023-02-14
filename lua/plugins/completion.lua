@@ -79,7 +79,7 @@ completion.setup({
 	window = {
 		completion = {
 			border = "rounded",
-			winhighlight = "Normal:CaseThirdAbove," .. "CursorLine:BaseFifthBelow," .. "Search:GreenSecondAbove",
+			winhighlight = "Normal:CmpNormal," .. "CursorLine:CmpCursorLine," .. "Search:CmpSearch",
 			scrollbar = false,
 		},
 		documentation = {
@@ -143,12 +143,6 @@ completion.setup({
 
 				item.abbr = item.abbr:match("^%s*(.*)")
 
-				--print(item.kind) -- Tipo
-				--print(item.abbr) -- Abreviação
-				--print(item.word) -- Palavra
-				--print(item.menu) -- Origem
-				--print(item.dup)  -- Algo
-
 				return item
 			end,
 		}),
@@ -167,6 +161,11 @@ completion.event:on("confirm_done", autopairs.on_confirm_done())
 
 local function colors()
 	local palette = themes.colors()
+
+	-- Completion Windows
+	highlight("CmpNormal", { fg = palette.base[10] })
+	highlight("CmpCursorLine", { bg = palette.base[4] })
+	highlight("CmpSearch", { fg = palette.cyan[2] })
 
 	-- Completion Menu
 	highlight("CmpItemAbbr", { fg = palette.case[3] })
