@@ -81,7 +81,7 @@ end
 
 signs.setup({
 	signs = {
-		add = { text = "+" },
+		add = { text = "+ " },
 		change = { text = "~" },
 		delete = { text = "-" },
 		topdelete = { text = "‾" },
