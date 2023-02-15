@@ -35,6 +35,11 @@ local function colors()
 		painter.opacity(palette.base[3], palette.blue[2], 10),
 		painter.opacity(palette.base[3], palette.blue[2], 50),
 	}
+	local magenta = {
+		palette.magenta[2],
+		painter.opacity(palette.base[3], palette.magenta[2], 10),
+		painter.opacity(palette.base[3], palette.magenta[2], 50),
+	}
 
 	highlight("GitSignsAdd", { fg = green[1] })
 	highlight("GitSignsAddNr", { fg = green[1] })
@@ -75,6 +80,14 @@ local function colors()
 	highlight("GitSignsStagedTopdelete", { fg = red[3] })
 	highlight("GitSignsStagedTopdeleteNr", { fg = red[1] })
 	highlight("GitSignsStagedTopdeleteLn", { bg = red[2] })
+
+	highlight("GitSignsUntracked", { fg = magenta[1] })
+	highlight("GitSignsUntrackedNr", { fg = magenta[1] })
+	highlight("GitSignsUntrackedLn", { bg = magenta[2] })
+	highlight("GitSignsUntrackedPreview", { fg = magenta[1] })
+	highlight("GitSignsStagedUntracked", { fg = magenta[3] })
+	highlight("GitSignsStagedUntrackedNr", { fg = magenta[1] })
+	highlight("GitSignsStagedUntrackedLn", { bg = magenta[2] })
 end
 
 ---------- Git Signs Setup
