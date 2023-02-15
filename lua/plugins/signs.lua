@@ -88,39 +88,31 @@ signs.setup({
 		changedelete = { text = "~" },
 		untracked = { text = ":" },
 	},
-	signcolumn = true,
 	numhl = true,
 	linehl = true,
-	word_diff = false,
-	watch_gitdir = {
-		enable = true,
-		interval = 1000,
-		follow_files = true,
-	},
-	attach_to_untracked = true,
-	current_line_blame = true, -- Toggle with `:Gitsigns toggle_current_line_blame`
+	current_line_blame = true,
 	current_line_blame_opts = {
 		virt_text = true,
-		virt_text_pos = "eol", -- 'eol' | 'overlay' | 'right_align'
+		virt_text_pos = "eol",
 		delay = 1000,
 		ignore_whitespace = false,
 	},
 	current_line_blame_formatter = "<author>, <author_time:%d-%m-%Y>: <summary>",
-	sign_priority = 6,
 	update_debounce = 1000,
-	status_formatter = nil, -- Use default
-	max_file_length = 50000, -- Disable if file is longer than this (in lines)
+	max_file_length = 50000,
 	preview_config = {
-		-- Options passed to nvim_open_win
 		border = "rounded",
 		style = "minimal",
 		relative = "cursor",
 		row = 0,
 		col = 1,
 	},
-	yadm = {
-		enable = false,
-	},
+	on_attach = function(_)
+		nnoremap("<a-g>vh", ":Gitsigns preview_hunk")
+		nnoremap("<a-g>ph", ":Gitsigns prev_hunk")
+		nnoremap("<a-g>nh", ":Gitsigns next_hunk")
+		nnoremap("<a-g>lh", ":Gitsigns toggle_linehl")
+	end,
 })
 
 ---------- Git Signs Auto Commands
