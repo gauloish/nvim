@@ -15,6 +15,8 @@ local fold = modules("ufo")
 ---------- Fold Functions
 
 local handler = function(texts, first, second, width, truncate)
+	table.insert(texts, { " ... ", "Comment" })
+
 	local line = eval["line"](".")
 	local column = eval["col"](".")
 
@@ -32,24 +34,27 @@ local handler = function(texts, first, second, width, truncate)
 		end
 	end
 
-	text = text:sub(position, #text)
+	local length = #text
 
-	eval["cursor"](second, position)
+	for index = position, length do
+		eval["cursor"](second, index)
 
-	local group = require("nvim-treesitter-playground.hl-info").get_treesitter_hl()[1]
+		local group = require("nvim-treesitter-playground.hl-info").get_treesitter_hl()
 
-	if group then
-		group = group:match("%* %*%*(.*)%*%*")
-	else
-		group = eval["synID"](second, position, 1)
+		group = group[#group]
+
+		if group then
+			group = group:match("%* %*%*(.*)%*%*")
+		else
+			group = eval["synID"](second, index, 1)
+		end
+
+		if not group or group == 0 or group == "" then
+			group = "Comment"
+		end
+
+		table.insert(texts, { text:sub(index, index), group })
 	end
-
-	if not group or group == 0 or group == "" then
-		group = "Comment"
-	end
-
-	table.insert(texts, { " ... ", "Comment" })
-	table.insert(texts, { text, group })
 
 	eval["cursor"](line, column)
 
