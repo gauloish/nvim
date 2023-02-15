@@ -25,7 +25,7 @@ function windows.colors()
 
 	highlight("Visual", { bg = palette.base[5], clear = true })
 
-	highlight("FoldColumn", { bg = palette.base[3], fg = palette.case[8], clear = true })
+	highlight("FoldColumn", { bg = palette.base[3], fg = palette.base[10], clear = true })
 
 	highlight("Pmenu", { bg = palette.base[3], fg = palette.case[3], clear = true })
 	highlight("PmenuSel", { bg = palette.blue[2], fg = palette.base[5], clear = true })
