@@ -191,7 +191,7 @@ end
 local enabled = {}
 
 enabled.git = function()
-	return varbuffer("gitsigns_head") or varbuffer("gitsigns_status_dict")
+	return varbuffer("gitsigns_head") and varbuffer("gitsigns_status_dict")
 end
 
 enabled.diagnostic = function()
