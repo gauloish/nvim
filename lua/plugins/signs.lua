@@ -88,10 +88,10 @@ signs.setup({
 		changedelete = { text = "~" },
 		untracked = { text = ":" },
 	},
-	signcolumn = true, -- Toggle with `:Gitsigns toggle_signs`
-	numhl = true, -- Toggle with `:Gitsigns toggle_numhl`
-	linehl = true, -- Toggle with `:Gitsigns toggle_linehl`
-	word_diff = false, -- Toggle with `:Gitsigns toggle_word_diff`
+	signcolumn = true,
+	numhl = true,
+	linehl = true,
+	word_diff = false,
 	watch_gitdir = {
 		enable = true,
 		interval = 1000,
