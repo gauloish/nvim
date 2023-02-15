@@ -93,8 +93,8 @@ local function colors()
 	highlight("barbecue_separator", { fg = palette.base[6] })
 	highlight("barbecue_modified", { fg = palette.base[6] })
 
-	highlight("barbecue_dirname", { fg = palette.case[3] })
-	highlight("barbecue_basename", { fg = palette.case[3] })
+	highlight("barbecue_dirname", { fg = palette.case[6] })
+	highlight("barbecue_basename", { fg = palette.case[6] })
 
 	highlight("barbecue_context_class", { fg = palette.green[2] })
 	highlight("barbecue_context_enum", { fg = palette.green[2] })
