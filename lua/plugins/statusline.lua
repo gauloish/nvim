@@ -130,9 +130,9 @@ end
 functions.git = function(length, state)
 	local branch = varbuffer("gitsigns_head")
 
-	local added = varbuffer("gitsigns_status_dict")["added"]
-	local removed = varbuffer("gitsigns_status_dict")["removed"]
-	local changed = varbuffer("gitsigns_status_dict")["changed"]
+	local added = varbuffer("gitsigns_status_dict")["added"] or 0
+	local removed = varbuffer("gitsigns_status_dict")["removed"] or 0
+	local changed = varbuffer("gitsigns_status_dict")["changed"] or 0
 
 	return (" %s +%s -%s ~%s"):format(branch, added, removed, changed)
 end
@@ -191,7 +191,7 @@ end
 local enabled = {}
 
 enabled.git = function()
-	return varbuffer("gitsigns_head") and varbuffer("gitsigns_status_dict")
+	return varbuffer("gitsigns_head") or varbuffer("gitsigns_status_dict")
 end
 
 enabled.diagnostic = function()
@@ -254,11 +254,11 @@ colors.mode = function(piece, state)
 	local groups = {
 		active = {
 			back = colors.palette[modes[mode]][2],
-			fore = colors.palette["base"][2],
+			fore = colors.palette["base"][3],
 		},
 		inactive = {
 			back = colors.palette["base"][10],
-			fore = colors.palette["base"][2],
+			fore = colors.palette["base"][3],
 		},
 	}
 
@@ -299,7 +299,7 @@ colors.extension = function(piece, state)
 	local groups = {
 		active = {
 			back = colors.palette["base"][5],
-			fore = colors.palette["case"][5],
+			fore = colors.palette["case"][6],
 		},
 		inactive = {
 			back = colors.palette["base"][4],
@@ -313,11 +313,11 @@ end
 colors.git = function(piece, state)
 	local groups = {
 		active = {
-			back = colors.palette["base"][4],
-			fore = colors.palette["case"][10],
+			back = colors.palette["base"][5],
+			fore = colors.palette["case"][6],
 		},
 		inactive = {
-			back = colors.palette["base"][4],
+			back = colors.palette["base"][5],
 			fore = colors.palette["base"][10],
 		},
 	}
@@ -338,7 +338,7 @@ colors.diagnostic = function(piece, state)
 	local groups = {
 		active = {
 			back = colors.palette["base"][5],
-			fore = colors.palette["case"][5],
+			fore = colors.palette["case"][6],
 		},
 		inactive = {
 			back = colors.palette["base"][4],
@@ -353,7 +353,7 @@ colors.position = function(piece, state)
 	local groups = {
 		active = {
 			back = colors.palette["base"][5],
-			fore = colors.palette["case"][5],
+			fore = colors.palette["case"][6],
 		},
 		inactive = {
 			back = colors.palette["base"][4],
@@ -383,11 +383,11 @@ colors.progress = function(piece, state)
 	local groups = {
 		active = {
 			back = colors.palette[modes[mode]][2],
-			fore = colors.palette["base"][1],
+			fore = colors.palette["base"][3],
 		},
 		inactive = {
 			back = colors.palette["base"][10],
-			fore = colors.palette["base"][1],
+			fore = colors.palette["base"][3],
 		},
 	}
 

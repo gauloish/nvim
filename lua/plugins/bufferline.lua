@@ -33,8 +33,8 @@ local colors = {
 		fg = components()["colors"]["base"][10],
 	},
 	current = {
-		bg = components()["colors"]["base"][6],
-		fg = components()["colors"]["case"][5],
+		bg = components()["colors"]["base"][5],
+		fg = components()["colors"]["case"][6],
 	},
 }
 
@@ -51,8 +51,8 @@ colors.update = function()
 		fg = themes.colors()["base"][10],
 	}
 	colors.current = {
-		bg = themes.colors()["base"][6],
-		fg = themes.colors()["case"][5],
+		bg = themes.colors()["base"][5],
+		fg = themes.colors()["case"][6],
 	}
 end
 
