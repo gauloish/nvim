@@ -193,6 +193,10 @@ manager.plugins = {
 
 	"lukas-reineke/indent-blankline.nvim",
 
+	---------- Terminal
+
+	{ "akinsho/toggleterm.nvim", version = "*" },
+
 	---------- Other
 
 	"nvim-lua/plenary.nvim",
