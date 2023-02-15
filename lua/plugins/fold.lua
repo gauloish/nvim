@@ -2,6 +2,8 @@
 
 require("interface")
 
+local themes = require("tools/themes")
+
 ---------- Verification Step
 
 local modules = dependencies({ "ufo" })
@@ -13,6 +15,19 @@ end
 local fold = modules("ufo")
 
 ---------- Fold Functions
+
+local colors = function()
+	local palette = themes.colors()
+
+	highlight("UfoFoldedBg", { bg = palette.base[5] })
+	highlight("UfoFoldedFg", { fg = palette.case[5] })
+	highlight("UfoFoldedEllipsis", { fg = palette.base[10] })
+
+	highlight("UfoPreviewSbar", { bg = palette.base[5] })
+	highlight("UfoPreviewThumb", { bg = palette.base[5] })
+	highlight("UfoPreviewWinbar", { bg = palette.base[5] })
+	highlight("UfoPreviewCursorLine", { bg = palette.base[4] })
+end
 
 local handler = function(texts, first, second, width, truncate)
 	table.insert(texts, { " ... ", "Comment" })
@@ -100,3 +115,11 @@ nnoremap("<a-f>o", fold.openAllFolds)
 nnoremap("<a-f>c", fold.closeAllFolds)
 
 nnoremap("<a-f>v", fold.peekFoldedLinesUnderCursor)
+
+---------- Fold Mappings
+
+augroup("FoldColors")
+do
+	autocmd("FoldColors", "ColorScheme", "*", colors)
+	autocmd("FoldColors", "VimEnter", "*", colors)
+end
