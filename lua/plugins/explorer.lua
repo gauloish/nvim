@@ -171,7 +171,7 @@ local function colors()
 	highlight("NvimTreeNormalNC", { bg = palette.base[2], fg = palette.base[10], clear = true })
 	highlight("NvimStatusLine", { bg = palette.base[2], fg = palette.base[10], clear = true })
 	highlight("NvimStatusLineNC", { bg = palette.base[2], fg = palette.base[10], clear = true })
-	highlight("NvimTreeWinSeparator", { bg = palette.base[2], fg = palette.base[2], clear = true })
+	highlight("NvimTreeWinSeparator", { bg = palette.base[3], fg = palette.base[2], clear = true })
 	highlight("NvimTreeEndOfBuffer", { fg = palette.base[2], clear = true })
 
 	highlight("NvimTreeGitDirty", { fg = palette.blue[2], clear = true })
