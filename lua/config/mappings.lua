@@ -35,6 +35,34 @@ local function out()
 	call("cursor", pos)
 end
 
+local movements = {}
+
+movements.surround = function(what)
+	movements.sense = not movements.sense
+
+	if what == "''" or what == '""' then
+		execute("normal! v")
+		execute("normal! 2i" .. what:sub(1, 1))
+		execute("normal! v")
+	else
+		execute("normal! v")
+		execute("normal! a" .. what:sub(1, 1))
+		execute("normal! v")
+	end
+
+	execute("normal! `<")
+	local begin = { eval["line"]("."), eval["col"](".") }
+
+	execute("normal! `>")
+	local ends = { eval["line"]("."), eval["col"](".") }
+
+	if movements.sense then
+		call("cursor", begin)
+	else
+		call("cursor", ends)
+	end
+end
+
 local modifiers = {
 	copy = {
 		text = function(what)
@@ -73,23 +101,25 @@ local modifiers = {
 			execute("normal! `>")
 			local ends = { eval["line"]("."), eval["col"](".") }
 
+			local allowed = false
+
 			if (begin[1] <= pos[1]) and (pos[1] <= ends[1]) then
 				if begin[1] ~= ends[1] then
-					if where == "in" then
-						execute([[normal! yi]] .. what:sub(1, 1))
-					else
-						execute([[normal! ya]] .. what:sub(1, 1))
-					end
+					allowed = true
 				else
 					if begin[2] ~= ends[2] then
 						if (begin[2] <= pos[2]) and (pos[2] <= ends[2]) then
-							if where == "in" then
-								execute([[normal! yi]] .. what:sub(1, 1))
-							else
-								execute([[normal! ya]] .. what:sub(1, 1))
-							end
+							allowed = true
 						end
 					end
+				end
+			end
+
+			if allowed then
+				if where == "in" then
+					execute([[normal! yi]] .. what:sub(1, 1))
+				else
+					execute([[normal! ya]] .. what:sub(1, 1))
 				end
 			end
 
@@ -136,23 +166,25 @@ local modifiers = {
 
 			call("cursor", pos)
 
+			local allowed = false
+
 			if (begin[1] <= pos[1]) and (pos[1] <= ends[1]) then
 				if begin[1] ~= ends[1] then
-					if where == "in" then
-						execute([[normal! di]] .. what:sub(1, 1))
-					else
-						execute([[normal! da]] .. what:sub(1, 1))
-					end
+					allowed = true
 				else
 					if begin[2] ~= ends[2] then
 						if (begin[2] <= pos[2]) and (pos[2] <= ends[2]) then
-							if where == "in" then
-								execute([[normal! di]] .. what:sub(1, 1))
-							else
-								execute([[normal! da]] .. what:sub(1, 1))
-							end
+							allowed = true
 						end
 					end
+				end
+			end
+
+			if allowed then
+				if where == "in" then
+					execute([[normal! di]] .. what:sub(1, 1))
+				else
+					execute([[normal! da]] .. what:sub(1, 1))
 				end
 			end
 		end,
@@ -197,23 +229,25 @@ local modifiers = {
 
 			call("cursor", pos)
 
+			local allowed = false
+
 			if (begin[1] <= pos[1]) and (pos[1] <= ends[1]) then
 				if begin[1] ~= ends[1] then
-					if where == "in" then
-						execute([[normal! "_di]] .. what:sub(1, 1))
-					else
-						execute([[normal! "_da]] .. what:sub(1, 1))
-					end
+					allowed = true
 				else
 					if begin[2] ~= ends[2] then
 						if (begin[2] <= pos[2]) and (pos[2] <= ends[2]) then
-							if where == "in" then
-								execute([[normal! "_di]] .. what:sub(1, 1))
-							else
-								execute([[normal! "_da]] .. what:sub(1, 1))
-							end
+							allowed = true
 						end
 					end
+				end
+			end
+
+			if allowed then
+				if where == "in" then
+					execute([[normal! "_di]] .. what:sub(1, 1))
+				else
+					execute([[normal! "_da]] .. what:sub(1, 1))
 				end
 			end
 		end,
@@ -506,6 +540,9 @@ local go = {
 --------------- Descriptions of Mappings
 
 local descriptions = {
+	movements = function(what)
+		return ("Move to Surround of ´%s´"):format(what)
+	end,
 	text = function(action, what)
 		local mapping = {
 			["word"] = "a Word",
@@ -520,7 +557,7 @@ local descriptions = {
 			["blin"] = "the Back of a Line",
 		}
 
-		return string.format("%s %s", capitalize(action), mapping[what])
+		return ("%s %s"):format(capitalize(action), mapping[what])
 	end,
 	surround = function(action, what, where)
 		local mapping = {
@@ -528,7 +565,7 @@ local descriptions = {
 			["on"] = "Including",
 		}
 
-		return string.format("%s a `%s` Block (%s)", capitalize(action), what, mapping[where])
+		return ("%s a `%s` Block (%s)"):format(capitalize(action), what, mapping[where])
 	end,
 	put = function(what, where)
 		local mapping = {
@@ -538,20 +575,28 @@ local descriptions = {
 			["phag"] = "Paragraph",
 		}
 
-		return string.format("Wrap a %s with `%s` Block", mapping[where], what)
+		return ("Wrap a %s with `%s` Block"):format(mapping[where], what)
 	end,
 	take = function(what)
-		return string.format("Take the `%s` Block Around Cursor", what)
+		return ("Take the `%s` Block Around Cursor"):format(what)
 	end,
 	substitute = function(this, that)
-		return string.format("Substitute the `%s` Block by `%s` Block", this, that)
+		return ("Substitute the `%s` Block by `%s` Block"):format(this, that)
 	end,
 	go = function(what, where)
-		return string.format("Go To the %s in %s Window", capitalize(what), capitalize(where))
+		return ("Go To the %s in %s Window"):format(capitalize(what), capitalize(where))
 	end,
 }
 
 ---------- Normal Mode Maps
+
+-- Movements
+nnoremap([[m"]], wrapper(movements.surround, '""'), { silent = true, desc = descriptions.movements('""') })
+nnoremap([[m']], wrapper(movements.surround, "''"), { silent = true, desc = descriptions.movements("''") })
+nnoremap([[m(]], wrapper(movements.surround, "()"), { silent = true, desc = descriptions.movements("()") })
+nnoremap([[m{]], wrapper(movements.surround, "{}"), { silent = true, desc = descriptions.movements("{}") })
+nnoremap([[m[]], wrapper(movements.surround, "[]"), { silent = true, desc = descriptions.movements("[]") })
+nnoremap([[m<]], wrapper(movements.surround, "<>"), { silent = true, desc = descriptions.movements("<>") })
 
 -- Go To
 nnoremap([[gfc]], wrapper(go.file, "current"), { silent = true, desc = descriptions.go("file", "current") })
