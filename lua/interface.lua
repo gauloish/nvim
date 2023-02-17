@@ -288,6 +288,20 @@ function highlight(group, values)
 	vim.api.nvim_set_hl(0, group, values)
 end
 
+---------- Loop Functions
+
+function schedule(process)
+	return vim.schedule(process)
+end
+
+function wait(time, process)
+	return vim.wait(time, process)
+end
+
+function defer(process, time)
+	return vim.defer_fn(process, time)
+end
+
 ---------- Other Functions
 
 function colorscheme(scheme)
