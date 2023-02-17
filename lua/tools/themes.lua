@@ -239,8 +239,8 @@ themes.verify = {
 }
 
 themes.colors = function()
-	themes.verify["color"]()
-	themes.verify["update"]()
+	--themes.verify["color"]()
+	--themes.verify["update"]()
 
 	return components()["colors"]
 end
