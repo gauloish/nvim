@@ -150,49 +150,6 @@ local function resize()
 	execute("vertical resize " .. size)
 end
 
-local function colors()
-	local palette = themes.colors()
-
-	highlight("NvimTreeSymlink", { fg = palette.base[10], clear = true })
-	highlight("NvimTreeFolderName", { fg = palette.base[10], clear = true })
-	highlight("NvimTreeFolderIcon", { fg = palette.base[10], clear = true })
-	highlight("NvimTreeFileIcon", { fg = palette.base[10], clear = true })
-	highlight("NvimTreeRootFolder", { fg = palette.base[10], clear = true })
-	highlight("NvimTreeEmptyFolderName", { fg = palette.base[8], clear = true })
-	highlight("NvimTreeOpenedFolderName", { fg = palette.case[5], clear = true })
-	highlight("NvimTreeOpenedFile", { fg = palette.case[5], clear = true })
-	highlight("NvimTreeExecFile", { fg = palette.blue[2], clear = true })
-	highlight("NvimTreeSpecialFile", { fg = palette.magenta[2], clear = true })
-	highlight("NvimTreeImageFile", { fg = palette.base[10], clear = true })
-	highlight("NvimTreeMarkdownFile", { fg = palette.base[10], clear = true })
-	highlight("NvimTreeIndentMarker", { fg = palette.base[5], clear = true })
-
-	highlight("NvimTreeNormal", { bg = palette.base[2], fg = palette.base[10], clear = true })
-	highlight("NvimTreeNormalNC", { bg = palette.base[2], fg = palette.base[10], clear = true })
-	highlight("NvimStatusLine", { bg = palette.base[2], fg = palette.base[10], clear = true })
-	highlight("NvimStatusLineNC", { bg = palette.base[2], fg = palette.base[10], clear = true })
-	highlight("NvimTreeWinSeparator", { bg = palette.base[3], fg = palette.base[2], clear = true })
-	highlight("NvimTreeEndOfBuffer", { fg = palette.base[2], clear = true })
-
-	highlight("NvimTreeGitDirty", { fg = palette.blue[2], clear = true })
-	highlight("NvimTreeGitStaged", { fg = palette.green[2], clear = true })
-	highlight("NvimTreeGitMerge", { fg = palette.yellow[2], clear = true })
-	highlight("NvimTreeGitRenamed", { fg = palette.magenta[2], clear = true })
-	highlight("NvimTreeGitNew", { fg = palette.cyan[2], clear = true })
-	highlight("NvimTreeGitDeleted", { fg = palette.red[2], clear = true })
-	highlight("NvimTreeGitIgnored", { fg = palette.base[10], clear = true })
-
-	highlight("NvimTreeFileDirty", { link = "NvimTreeGitDirty", clear = true })
-	highlight("NvimTreeFileStaged", { link = "NvimTreeGitStaged", clear = true })
-	highlight("NvimTreeFileMerge", { link = "NvimTreeGitMerge", clear = true })
-	highlight("NvimTreeFileRenamed", { link = "NvimTreeGitRenamed", clear = true })
-	highlight("NvimTreeFileNew", { link = "NvimTreeGitNew", clear = true })
-	highlight("NvimTreeFileDeleted", { link = "NvimTreeGitDeleted", clear = true })
-	highlight("NvimTreeFileIgnored", { link = "NvimTreeGitIgnored", clear = true })
-
-	highlight("NvimTreeWindowPicker", { bg = palette.base[5], fg = palette.case[5], clear = true })
-end
-
 local function rename()
 	if getbuffer("filetype") == "NvimTree" then
 		execute("file Files")
@@ -200,12 +157,6 @@ local function rename()
 end
 
 ---------- File Explorer Auto Commands
-
-augroup("ExplorerColors")
-do
-	autocmd("ExplorerColors", "ColorScheme", "*", colors)
-	autocmd("ExplorerColors", "VimEnter", "*", colors)
-end
 
 augroup("ResizeExplorer")
 do

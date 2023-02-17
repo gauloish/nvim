@@ -87,23 +87,3 @@ wilder.set_option('renderer', wilder.popupmenu_renderer(
 	})
 ))
 --]]
-
----------- Wild Menu Functions
-
-local colors = function()
-	local palette = themes.colors()
-
-	highlight("WildBorder", { fg = palette.base[10] })
-	highlight("WildDefault", { bg = palette.base[3], fg = palette.case[3] })
-	highlight("WildSelected", { bg = palette.base[5], fg = palette.case[3] })
-	highlight("WildAccent", { bg = palette.base[3], fg = palette.cyan[2] })
-	highlight("WildSelectedAccent", { bg = palette.base[5], fg = palette.cyan[2] })
-end
-
----------- Wild Menu Auto Commands
-
-augroup("WilderColors")
-do
-	autocmd("WilderColors", "ColorScheme", "*", colors)
-	autocmd("WilderColors", "VimEnter", "*", colors)
-end

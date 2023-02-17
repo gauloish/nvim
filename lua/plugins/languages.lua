@@ -142,14 +142,6 @@ local function colors()
 	end
 end
 
----------- Language Servers Auto Commands
-
-augroup("DiagnosticColors")
-do
-	autocmd("DiagnosticColors", "ColorScheme", "*", colors)
-	autocmd("DiagnosticColors", "VimEnter", "*", colors)
-end
-
 ---------- Language Servers Mappings
 
 augroup("LspMappings")

@@ -281,8 +281,8 @@ tabline.options = {
 
 augroup("TabBufferLineColors")
 do
-	autocmd("TabBufferLineColors", "ColorScheme", "*", colors.update)
-	autocmd("TabBufferLineColors", "VimEnter", "*", colors.update)
+	autocmd("TabBufferLineColors", "ColorScheme", "*", bundle(defer, colors.update, 50))
+	autocmd("TabBufferLineColors", "VimEnter", "*", bundle(defer, colors.update, 50))
 end
 
 ---------- Tab and Buffer Line Functions ----------

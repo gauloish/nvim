@@ -15,81 +15,6 @@ end
 
 local signs = modules("gitsigns")
 
----------- Git Signs Functions
-
-local function colors()
-	local palette = themes.colors()
-
-	local red = {
-		palette.red[2],
-		painter.opacity(palette.base[3], palette.red[2], 10),
-		painter.opacity(palette.base[3], palette.red[2], 50),
-	}
-	local green = {
-		palette.green[2],
-		painter.opacity(palette.base[3], palette.green[2], 10),
-		painter.opacity(palette.base[3], palette.green[2], 50),
-	}
-	local blue = {
-		palette.blue[2],
-		painter.opacity(palette.base[3], palette.blue[2], 10),
-		painter.opacity(palette.base[3], palette.blue[2], 50),
-	}
-	local magenta = {
-		palette.magenta[2],
-		painter.opacity(palette.base[3], palette.magenta[2], 10),
-		painter.opacity(palette.base[3], palette.magenta[2], 50),
-	}
-
-	highlight("GitSignsAdd", { fg = green[1] })
-	highlight("GitSignsAddNr", { fg = green[1] })
-	highlight("GitSignsAddLn", { bg = green[2] })
-	highlight("GitSignsAddPreview", { fg = green[1] })
-	highlight("GitSignsStagedAdd", { fg = green[3] })
-	highlight("GitSignsStagedAddNr", { fg = green[1] })
-	highlight("GitSignsStagedAddLn", { bg = green[2] })
-
-	highlight("GitSignsChange", { fg = blue[1] })
-	highlight("GitSignsChangeNr", { fg = blue[1] })
-	highlight("GitSignsChangeLn", { bg = blue[2] })
-	highlight("GitSignsChangePreview", { fg = blue[1] })
-	highlight("GitSignsStagedChange", { fg = blue[3] })
-	highlight("GitSignsStagedChangeNr", { fg = blue[1] })
-	highlight("GitSignsStagedChangeLn", { bg = blue[2] })
-
-	highlight("GitSignsChangedelete", { fg = blue[1] })
-	highlight("GitSignsChangedeleteNr", { fg = blue[1] })
-	highlight("GitSignsChangedeleteLn", { bg = blue[2] })
-	highlight("GitSignsChangedeletePreview", { fg = blue[1] })
-	highlight("GitSignsStagedChangedelete", { fg = blue[3] })
-	highlight("GitSignsStagedChangedeleteNr", { fg = blue[1] })
-	highlight("GitSignsStagedChangedeleteLn", { bg = blue[2] })
-
-	highlight("GitSignsDelete", { fg = red[1] })
-	highlight("GitSignsDeleteNr", { fg = red[1] })
-	highlight("GitSignsDeleteLn", { bg = red[2] })
-	highlight("GitSignsDeletePreview", { fg = red[1] })
-	highlight("GitSignsStagedDelete", { fg = red[3] })
-	highlight("GitSignsStagedDeleteNr", { fg = red[1] })
-	highlight("GitSignsStagedDeleteLn", { bg = red[2] })
-
-	highlight("GitSignsTopdelete", { fg = red[1] })
-	highlight("GitSignsTopdeleteNr", { fg = red[1] })
-	highlight("GitSignsTopdeleteLn", { bg = red[2] })
-	highlight("GitSignsTopdeletePreview", { fg = red[1] })
-	highlight("GitSignsStagedTopdelete", { fg = red[3] })
-	highlight("GitSignsStagedTopdeleteNr", { fg = red[1] })
-	highlight("GitSignsStagedTopdeleteLn", { bg = red[2] })
-
-	highlight("GitSignsUntracked", { fg = magenta[1] })
-	highlight("GitSignsUntrackedNr", { fg = magenta[1] })
-	highlight("GitSignsUntrackedLn", { bg = magenta[2] })
-	highlight("GitSignsUntrackedPreview", { fg = magenta[1] })
-	highlight("GitSignsStagedUntracked", { fg = magenta[3] })
-	highlight("GitSignsStagedUntrackedNr", { fg = magenta[1] })
-	highlight("GitSignsStagedUntrackedLn", { bg = magenta[2] })
-end
-
 ---------- Git Signs Setup
 
 signs.setup({
@@ -127,11 +52,3 @@ signs.setup({
 		nnoremap("<a-g>lh", ":Gitsigns toggle_linehl")
 	end,
 })
-
----------- Git Signs Auto Commands
-
-augroup("GitSignsColors")
-do
-	autocmd("GitSignsColors", "ColorScheme", "*", colors)
-	autocmd("GitSignsColors", "VimEnter", "*", colors)
-end

@@ -42,13 +42,6 @@ indent.setup({
 
 ---------- Indent Guides Functions
 
-local function colors()
-	local palette = themes.colors()
-
-	highlight("IndentBlankLineChar", { fg = palette.base[4] }) -- link = "BaseFourthAbove" })
-	highlight("IndentBlankLineContextChar", { fg = palette.base[6] }) -- link = "BaseSixthAbove" })
-end
-
 local function delete()
 	unautocmd("IndentBlanklineAutogroup", "ColorScheme", "*")
 end
@@ -57,7 +50,5 @@ end
 
 augroup("IndentColors")
 do
-	autocmd("IndentColors", "ColorScheme", "*", colors)
-	autocmd("IndentColors", "VimEnter", "*", colors)
 	autocmd("IndentColors", "VimEnter", "*", delete)
 end

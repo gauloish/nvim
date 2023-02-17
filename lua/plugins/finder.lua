@@ -83,37 +83,6 @@ function actions(action)
 	print("Directory: " .. eval["getcwd"]())
 end
 
-local function colors()
-	local palette = themes.colors()
-
-	highlight("TelescopeSelection", { bg = palette.base[4] }) -- link = "BaseFourthBelow" })
-	highlight("TelescopeSelectionCaret", { bg = palette.base[4] }) -- link = "BaseFourthBelow" })
-
-	highlight("TelescopePreviewNormal", { bg = palette.base[3] }) -- link = "BaseThirdBelow" })
-	highlight("TelescopeResultsNormal", { bg = palette.base[3] }) -- link = "BaseThirdBelow" })
-	highlight("TelescopePromptNormal", { bg = palette.base[3] }) -- link = "BaseThirdBelow" })
-
-	highlight("TelescopePreviewTitle", { fg = palette.case[1] }) -- link = "CaseFirstAbove" })
-	highlight("TelescopeResultsTitle", { fg = palette.case[1] }) -- link = "CaseFirstAbove" })
-	highlight("TelescopePromptTitle", { fg = palette.case[1] }) -- link = "CaseFirstAbove" })
-
-	highlight("TelescopePreviewBorder", { fg = palette.base[10] }) -- link = "BaseTenthAbove" })
-	highlight("TelescopeResultsBorder", { fg = palette.base[10] }) -- link = "BaseTenthAbove" })
-	highlight("TelescopePromptBorder", { fg = palette.base[10] }) -- link = "BaseTenthAbove" })
-
-	highlight("TelescopePromptPrefix", { fg = palette.magenta[2] }) -- link = "MagentaSecondAbove" })
-
-	highlight("TelescopeMatching", { fg = palette.cyan[2] }) -- link = "CyanSecondAbove" })
-end
-
----------- Finder Auto Commands
-
-augroup("TelescopeColors")
-do
-	autocmd("TelescopeColors", "ColorScheme", "*", colors)
-	autocmd("TelescopeColors", "VimEnter", "*", colors)
-end
-
 ---------- Finder Mappings
 
 nnoremap("ff", bundle(actions, "files"), { desc = "Open Telescope Files Finder" })

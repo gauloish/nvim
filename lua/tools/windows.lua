@@ -8,36 +8,6 @@ local themes = require("tools/themes")
 
 local windows = {}
 
-function windows.colors()
-	local palette = themes.colors()
-
-	highlight("StatusLine", { bg = palette.base[3], clear = true })
-	highlight("StatusLineNC", { bg = palette.base[3], fg = palette.base[3], clear = true })
-
-	highlight("VertSplit", { bg = palette.base[3], fg = palette.base[1], clear = true })
-	highlight("WinSeparator", { bg = palette.base[3], fg = palette.base[1], clear = true })
-	highlight("EndOfBuffer", { fg = palette.base[6], clear = true })
-
-	highlight("CursorLine", { bg = palette.base[4], clear = true })
-	highlight("CursorLineNr", { bg = palette.base[3], clear = true })
-
-	highlight("SignColumn", { bg = palette.base[3], clear = true })
-
-	highlight("Visual", { bg = palette.base[5], clear = true })
-
-	highlight("FoldColumn", { bg = palette.base[3], fg = palette.base[10], clear = true })
-
-	highlight("Pmenu", { bg = palette.base[3], fg = palette.case[3], clear = true })
-	highlight("PmenuSel", { bg = palette.blue[2], fg = palette.base[5], clear = true })
-	highlight("PmenuSbar", { bg = palette.base[5], clear = true })
-	highlight("PmenuThumb", { bg = palette.base[7], clear = true })
-
-	highlight("FloatBorder", { fg = palette.base[10], clear = true })
-	highlight("NormalFloat", { bg = palette.base[3], fg = palette.case[3], clear = true })
-
-	highlight("Search", { bg = palette.base[6], clear = true })
-end
-
 function windows.cursor(value)
 	if value then
 		highlight("Cursor", { blend = 0, reverse = true })
@@ -82,6 +52,14 @@ function windows.foldcolumn(value)
 	end
 end
 
+function windows.signcolumn(value)
+	if value then
+		setwindow("signcolumn", "yes")
+	else
+		setwindow("signcolumn", "no")
+	end
+end
+
 function windows.enter()
 	local options = {
 		cursor = {
@@ -119,6 +97,14 @@ function windows.enter()
 			mason = true,
 			Search = true,
 		},
+		signcolumn = {
+			Startup = true,
+			Buffers = true,
+			NvimTree = true,
+			TelescopePrompt = true,
+			mason = true,
+			Search = true,
+		},
 	}
 
 	local filetype = get("filetype")
@@ -137,12 +123,6 @@ function windows.schedule()
 end
 
 ----------- Windows Auto Commands and Augroups
-
-augroup("WindowsColors")
-do
-	autocmd("WindowsColors", "ColorScheme", "*", windows.colors)
-	autocmd("WindowsColors", "VimEnter", "*", windows.colors)
-end
 
 augroup("WindowsOptions")
 do

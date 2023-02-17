@@ -83,51 +83,6 @@ local function update()
 	end
 end
 
-local function colors()
-	local palette = themes.colors()
-
-	highlight("barbecue_normal", { fg = palette.base[10] })
-	highlight("barbecue_context", { fg = palette.base[10] })
-
-	highlight("barbecue_ellipsis", { fg = palette.base[6] })
-	highlight("barbecue_separator", { fg = palette.base[6] })
-	highlight("barbecue_modified", { fg = palette.base[6] })
-
-	highlight("barbecue_dirname", { fg = palette.case[6] })
-	highlight("barbecue_basename", { fg = palette.case[6] })
-
-	highlight("barbecue_context_class", { fg = palette.green[2] })
-	highlight("barbecue_context_enum", { fg = palette.green[2] })
-	highlight("barbecue_context_struct", { fg = palette.green[2] })
-	highlight("barbecue_context_interface", { fg = palette.green[2] })
-	highlight("barbecue_context_constructor", { fg = palette.green[2] })
-
-	highlight("barbecue_context_method", { fg = palette.blue[2] })
-	highlight("barbecue_context_field", { fg = palette.blue[2] })
-	highlight("barbecue_context_enum_member", { fg = palette.blue[2] })
-	highlight("barbecue_context_property", { fg = palette.blue[2] })
-	highlight("barbecue_context_event", { fg = palette.blue[2] })
-	highlight("barbecue_context_operator", { fg = palette.blue[2] })
-	highlight("barbecue_context_function", { fg = palette.blue[2] })
-
-	highlight("barbecue_context_package", { fg = palette.yellow[2] })
-	highlight("barbecue_context_module", { fg = palette.yellow[2] })
-	highlight("barbecue_context_namespace", { fg = palette.yellow[2] })
-	highlight("barbecue_context_key", { fg = palette.yellow[2] })
-
-	highlight("barbecue_context_type_parameter", { fg = palette.cyan[2] })
-	highlight("barbecue_context_object", { fg = palette.cyan[2] })
-	highlight("barbecue_context_variable", { fg = palette.cyan[2] })
-	highlight("barbecue_context_constant", { fg = palette.cyan[2] })
-	highlight("barbecue_context_string", { fg = palette.cyan[2] })
-	highlight("barbecue_context_number", { fg = palette.cyan[2] })
-	highlight("barbecue_context_boolean", { fg = palette.cyan[2] })
-	highlight("barbecue_context_array", { fg = palette.cyan[2] })
-	highlight("barbecue_context_null", { fg = palette.cyan[2] })
-
-	highlight("barbecue_context_file", { fg = palette.magenta[2] })
-end
-
 ---------- Windows Bar Auto Commands
 
 augroup("WinbarUpdate")
@@ -139,10 +94,4 @@ do
 	autocmd("WinbarUpdate", "BufWritePost", "*", update)
 	autocmd("WinbarUpdate", "TextChanged", "*", update)
 	autocmd("WinbarUpdate", "TextChangedI", "*", update)
-end
-
-augroup("WinbarColors")
-do
-	autocmd("WinbarColors", "ColorScheme", "*", colors)
-	autocmd("WinbarColors", "VimEnter", "*", colors)
 end

@@ -730,8 +730,8 @@ local statusline = {
 
 augroup("StatusLineColors")
 do
-	autocmd("StatusLineColors", "ColorScheme", "*", colors.update)
-	autocmd("StatusLineColors", "VimEnter", "*", colors.update)
+	autocmd("StatusLineColors", "ColorScheme", "*", bundle(defer, colors.update, 50))
+	autocmd("StatusLineColors", "VimEnter", "*", bundle(defer, colors.update, 50))
 end
 
 ----------- Status Line Setup
