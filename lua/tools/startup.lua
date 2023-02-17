@@ -153,23 +153,21 @@ function startup.start()
 	end
 
 	execute("enew")
-
 	execute("file Startup")
+	execute("syntax enable")
 
+	setbuffer("filetype", "Startup")
+	setbuffer("syntax", "startup")
 	setbuffer("buflisted", true)
 	setbuffer("swapfile", false)
 	setbuffer("modifiable", false)
 	setbuffer("modified", false)
 
-	setbuffer("filetype", "Startup")
-
-	execute("syntax enable")
-
-	setbuffer("syntax", "startup")
-
 	setwindow("number", false)
 	setwindow("relativenumber", false)
 	setwindow("cursorline", false)
+	setwindow("signcolumn", "no")
+	setwindow("foldcolumn", "0")
 
 	startup.update()
 

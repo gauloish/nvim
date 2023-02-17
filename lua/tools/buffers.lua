@@ -227,6 +227,12 @@ function buffers.create()
 
 	vim.api.nvim_buf_set_lines(buffers.buffer, 0, -1, false, buffers.lines)
 
+	setwindow("number", false)
+	setwindow("relativenumber", false)
+	setwindow("cursorline", false)
+	setwindow("signcolumn", "no")
+	setwindow("foldcolumn", "0")
+
 	setbuffer("swapfile", false, buffers.buffer)
 	setbuffer("buflisted", false, buffers.buffer)
 
