@@ -24,6 +24,7 @@ require("tools/highlights")
 
 require("plugins/fold")
 --require('plugins/move')
+require("plugins/icons")
 require("plugins/signs")
 require("plugins/pairs")
 require("plugins/shift")
