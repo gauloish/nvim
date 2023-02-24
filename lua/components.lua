@@ -78,7 +78,11 @@ local function components()
 	}
 
 	for color, content in pairs(pieces.colors) do
-		if #content == 0 then
+		local updated = pieces.colors[color][1] or pieces.colors[color][2]
+
+		if #content == 0 or not updated then
+			pieces.update = false
+
 			pieces.colors[color] = { back, fore }
 		end
 	end
