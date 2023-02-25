@@ -5,7 +5,13 @@ require("interface")
 local themes = require("tools/themes")
 local painter = require("tools/painter")
 
-local function colors()
+local highlights = {}
+
+highlights.count = 0
+highlights.time = 50
+highlights.out = 200
+
+highlights.colors = function()
 	local palette = themes.colors()
 
 	do -- Windows Highlights: tools/windows.lua
@@ -316,10 +322,22 @@ local function colors()
 	end
 end
 
-nnoremap("<F1>", colors, { silent = true })
+highlights.update = function()
+	if highlights.count * highlights.time > highlights.out then
+		highlights.count = 0
+	else
+		highlights.colors()
+
+		defer(highlights.update, highlights.time)
+
+		highlights.count = highlights.count + 1
+	end
+end
+
+nnoremap("<F1>", highlights.colors, { silent = true })
 
 augroup("HighlightColors")
 do
-	autocmd("HighlightColors", "VimEnter", "*", bundle(defer, colors, 50))
-	autocmd("HighlightColors", "ColorScheme", "*", bundle(defer, colors, 50))
+	autocmd("HighlightColors", "VimEnter", "*", highlights.update)
+	autocmd("HighlightColors", "ColorScheme", "*", highlights.update)
 end
