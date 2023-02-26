@@ -95,53 +95,6 @@ diagnostic.config({
 	},
 })
 
----------- Language Servers Functions
-
-local function colors()
-	local colors = themes.colors()
-
-	local signs = {
-		Error = {
-			icon = " ▎", --" ",
-			color = "red",
-		},
-		Warn = {
-			icon = " ▎", --" ",
-			color = "yellow",
-		},
-		Hint = {
-			icon = " ▎", --" ",
-			color = "green",
-		},
-		Info = {
-			icon = " ▎", --" "
-			color = "blue",
-		},
-	}
-
-	for sign, content in pairs(signs) do
-		local places = { "", "Sign", "Floating", "VirtualText" }
-
-		local icon = content["icon"]
-		local color = content["color"]
-
-		for _, place in pairs(places) do
-			highlight("Diagnostic" .. place .. sign, { fg = colors[color][2] })
-		end
-
-		local group = "Diagnostic" .. sign
-
-		eval["sign_define"]("DiagnosticSign" .. sign, { text = icon, texthl = group, numhl = group })
-	end
-
-	for sign, content in pairs(signs) do
-		local color = colors[content["color"]][2]
-		local group = "DiagnosticUnderline" .. sign
-
-		highlight(group, { sp = color, underline = true })
-	end
-end
-
 ---------- Language Servers Mappings
 
 augroup("LspMappings")
