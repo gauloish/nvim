@@ -215,8 +215,6 @@ function buffers.create()
 	buffers.update()
 	buffers.format()
 
-	print(buffers.buffers["current"], buffers.others["current"])
-
 	buffers.buffer = vim.api.nvim_create_buf(false, true)
 	buffers.window = vim.api.nvim_open_win(buffers.buffer, true, {
 		border = "rounded",
