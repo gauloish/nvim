@@ -191,6 +191,19 @@ highlights.colors = function()
 		highlight("DiagnosticUnderlineHint", { sp = palette.green[2], underline = true, clear = true })
 		highlight("DiagnosticUnderlineWarn", { sp = palette.yellow[2], underline = true, clear = true })
 		highlight("DiagnosticUnderlineError", { sp = palette.red[2], underline = true, clear = true })
+
+		local signs = {
+			Error = " ▎", --" ",
+			Warn = " ▎", --" ",
+			Hint = " ▎", --" ",
+			Info = " ▎", --" "
+		}
+
+		for sign, icon in pairs(signs) do
+			local group = "Diagnostic" .. sign
+
+			eval["sign_define"]("DiagnosticSign" .. sign, { text = icon, texthl = group, numhl = group })
+		end
 	end
 
 	do -- Signs Highlights: plugins/signs.lua
