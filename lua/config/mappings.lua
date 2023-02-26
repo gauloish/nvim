@@ -35,33 +35,31 @@ local function out()
 	call("cursor", position)
 end
 
-local movements = {}
+local movements = {
+	surround = function(what, where)
+		if what == "''" or what == '""' then
+			execute("normal! v")
+			execute("normal! 2i" .. what:sub(1, 1))
+			execute("normal! v")
+		else
+			execute("normal! v")
+			execute("normal! a" .. what:sub(1, 1))
+			execute("normal! v")
+		end
 
-movements.surround = function(what)
-	movements.sense = not movements.sense
+		execute("normal! `<")
+		local begin = { eval["line"]("."), eval["col"](".") }
 
-	if what == "''" or what == '""' then
-		execute("normal! v")
-		execute("normal! 2i" .. what:sub(1, 1))
-		execute("normal! v")
-	else
-		execute("normal! v")
-		execute("normal! a" .. what:sub(1, 1))
-		execute("normal! v")
-	end
+		execute("normal! `>")
+		local ends = { eval["line"]("."), eval["col"](".") }
 
-	execute("normal! `<")
-	local begin = { eval["line"]("."), eval["col"](".") }
-
-	execute("normal! `>")
-	local ends = { eval["line"]("."), eval["col"](".") }
-
-	if movements.sense then
-		call("cursor", begin)
-	else
-		call("cursor", ends)
-	end
-end
+		if where == "back" then
+			call("cursor", begin)
+		else
+			call("cursor", ends)
+		end
+	end,
+}
 
 local modifiers = {
 	copy = {
@@ -651,12 +649,18 @@ local descriptions = {
 ---------- Normal Mode Maps
 
 -- Movements
-nnoremap([[m"]], wrapper(movements.surround, '""'), { silent = true, desc = descriptions.movements('""') })
-nnoremap([[m']], wrapper(movements.surround, "''"), { silent = true, desc = descriptions.movements("''") })
-nnoremap([[m(]], wrapper(movements.surround, "()"), { silent = true, desc = descriptions.movements("()") })
-nnoremap([[m{]], wrapper(movements.surround, "{}"), { silent = true, desc = descriptions.movements("{}") })
-nnoremap([[m[]], wrapper(movements.surround, "[]"), { silent = true, desc = descriptions.movements("[]") })
-nnoremap([[m<]], wrapper(movements.surround, "<>"), { silent = true, desc = descriptions.movements("<>") })
+nnoremap([[m"]], wrapper(movements.surround, '""', "back"), { silent = true, desc = descriptions.movements('""') })
+nnoremap([[m']], wrapper(movements.surround, "''", "back"), { silent = true, desc = descriptions.movements("''") })
+nnoremap([[m(]], wrapper(movements.surround, "()", "back"), { silent = true, desc = descriptions.movements("()") })
+nnoremap([[m{]], wrapper(movements.surround, "{}", "back"), { silent = true, desc = descriptions.movements("{}") })
+nnoremap([[m[]], wrapper(movements.surround, "[]", "back"), { silent = true, desc = descriptions.movements("[]") })
+nnoremap([[m<]], wrapper(movements.surround, "<>", "back"), { silent = true, desc = descriptions.movements("<>") })
+nnoremap([[M"]], wrapper(movements.surround, '""', "front"), { silent = true, desc = descriptions.movements('""') })
+nnoremap([[M']], wrapper(movements.surround, "''", "front"), { silent = true, desc = descriptions.movements("''") })
+nnoremap([[M(]], wrapper(movements.surround, "()", "front"), { silent = true, desc = descriptions.movements("()") })
+nnoremap([[M{]], wrapper(movements.surround, "{}", "front"), { silent = true, desc = descriptions.movements("{}") })
+nnoremap([[M[]], wrapper(movements.surround, "[]", "front"), { silent = true, desc = descriptions.movements("[]") })
+nnoremap([[M<]], wrapper(movements.surround, "<>", "front"), { silent = true, desc = descriptions.movements("<>") })
 
 -- Go To
 nnoremap([[gfc]], wrapper(go.file, "current"), { silent = true, desc = descriptions.go("file", "current") })
@@ -678,18 +682,18 @@ nnoremap([[dbw]], repetition(modifiers.delete.text, "bwor"), { silent = true, de
 nnoremap([[dbe]], repetition(modifiers.delete.text, "bexp"), { silent = true, desc = descriptions.text("delete", "bexp") })
 nnoremap([[dbl]], repetition(modifiers.delete.text, "blin"), { silent = true, desc = descriptions.text("delete", "blin") })
 -- Delete Surrounds
-nnoremap([[d(]], repetition(modifiers.delete.surround, "()", "in"), { silent = true, desc = descriptions.surround("delete", "()", "in", "entire") })
-nnoremap([[d[]], repetition(modifiers.delete.surround, "[]", "in"), { silent = true, desc = descriptions.surround("delete", "[]", "in", "entire") })
-nnoremap([[d{]], repetition(modifiers.delete.surround, "{}", "in"), { silent = true, desc = descriptions.surround("delete", "{}", "in", "entire") })
-nnoremap([[d<]], repetition(modifiers.delete.surround, "<>", "in"), { silent = true, desc = descriptions.surround("delete", "<>", "in", "entire") })
-nnoremap([[d"]], repetition(modifiers.delete.surround, '""', "in"), { silent = true, desc = descriptions.surround("delete", '""', "in", "entire") })
-nnoremap([[d']], repetition(modifiers.delete.surround, "''", "in"), { silent = true, desc = descriptions.surround("delete", "''", "in", "entire") })
-nnoremap([[D(]], repetition(modifiers.delete.surround, "()", "on"), { silent = true, desc = descriptions.surround("delete", "()", "on", "entire") })
-nnoremap([[D[]], repetition(modifiers.delete.surround, "[]", "on"), { silent = true, desc = descriptions.surround("delete", "[]", "on", "entire") })
-nnoremap([[D{]], repetition(modifiers.delete.surround, "{}", "on"), { silent = true, desc = descriptions.surround("delete", "{}", "on", "entire") })
-nnoremap([[D<]], repetition(modifiers.delete.surround, "<>", "on"), { silent = true, desc = descriptions.surround("delete", "<>", "on", "entire") })
-nnoremap([[D"]], repetition(modifiers.delete.surround, '""', "on"), { silent = true, desc = descriptions.surround("delete", '""', "on", "entire") })
-nnoremap([[D']], repetition(modifiers.delete.surround, "''", "on"), { silent = true, desc = descriptions.surround("delete", "''", "on", "entire") })
+nnoremap([[d(]], repetition(modifiers.delete.surround, "()", "in", "entire"), { silent = true, desc = descriptions.surround("delete", "()", "in", "entire") })
+nnoremap([[d[]], repetition(modifiers.delete.surround, "[]", "in", "entire"), { silent = true, desc = descriptions.surround("delete", "[]", "in", "entire") })
+nnoremap([[d{]], repetition(modifiers.delete.surround, "{}", "in", "entire"), { silent = true, desc = descriptions.surround("delete", "{}", "in", "entire") })
+nnoremap([[d<]], repetition(modifiers.delete.surround, "<>", "in", "entire"), { silent = true, desc = descriptions.surround("delete", "<>", "in", "entire") })
+nnoremap([[d"]], repetition(modifiers.delete.surround, '""', "in", "entire"), { silent = true, desc = descriptions.surround("delete", '""', "in", "entire") })
+nnoremap([[d']], repetition(modifiers.delete.surround, "''", "in", "entire"), { silent = true, desc = descriptions.surround("delete", "''", "in", "entire") })
+nnoremap([[D(]], repetition(modifiers.delete.surround, "()", "on", "entire"), { silent = true, desc = descriptions.surround("delete", "()", "on", "entire") })
+nnoremap([[D[]], repetition(modifiers.delete.surround, "[]", "on", "entire"), { silent = true, desc = descriptions.surround("delete", "[]", "on", "entire") })
+nnoremap([[D{]], repetition(modifiers.delete.surround, "{}", "on", "entire"), { silent = true, desc = descriptions.surround("delete", "{}", "on", "entire") })
+nnoremap([[D<]], repetition(modifiers.delete.surround, "<>", "on", "entire"), { silent = true, desc = descriptions.surround("delete", "<>", "on", "entire") })
+nnoremap([[D"]], repetition(modifiers.delete.surround, '""', "on", "entire"), { silent = true, desc = descriptions.surround("delete", '""', "on", "entire") })
+nnoremap([[D']], repetition(modifiers.delete.surround, "''", "on", "entire"), { silent = true, desc = descriptions.surround("delete", "''", "on", "entire") })
 -- Delete Partial Surrounds
 nnoremap([[db(]], repetition(modifiers.delete.surround, "()", "in", "back"), { silent = true, desc = descriptions.surround("delete", "()", "in", "back") })
 nnoremap([[df(]], repetition(modifiers.delete.surround, "()", "in", "front"), { silent = true, desc = descriptions.surround("delete", "()", "in", "front") })
@@ -730,18 +734,18 @@ nnoremap([[cbw]], repetition(modifiers.cut.text, "bwor"), { silent = true, desc 
 nnoremap([[cbe]], repetition(modifiers.cut.text, "bexp"), { silent = true, desc = descriptions.text("cut", "bexp") })
 nnoremap([[cbl]], repetition(modifiers.cut.text, "blin"), { silent = true, desc = descriptions.text("cut", "blin") })
 -- Cut Surrounds
-nnoremap([[c(]], repetition(modifiers.cut.surround, "()", "in"), { silent = true, desc = descriptions.surround("cut", "()", "in", "entire") })
-nnoremap([[c[]], repetition(modifiers.cut.surround, "[]", "in"), { silent = true, desc = descriptions.surround("cut", "[]", "in", "entire") })
-nnoremap([[c{]], repetition(modifiers.cut.surround, "{}", "in"), { silent = true, desc = descriptions.surround("cut", "{}", "in", "entire") })
-nnoremap([[c<]], repetition(modifiers.cut.surround, "<>", "in"), { silent = true, desc = descriptions.surround("cut", "<>", "in", "entire") })
-nnoremap([[c"]], repetition(modifiers.cut.surround, '""', "in"), { silent = true, desc = descriptions.surround("cut", '""', "in", "entire") })
-nnoremap([[c']], repetition(modifiers.cut.surround, "''", "in"), { silent = true, desc = descriptions.surround("cut", "''", "in", "entire") })
-nnoremap([[C(]], repetition(modifiers.cut.surround, "()", "on"), { silent = true, desc = descriptions.surround("cut", "()", "on", "entire") })
-nnoremap([[C[]], repetition(modifiers.cut.surround, "[]", "on"), { silent = true, desc = descriptions.surround("cut", "[]", "on", "entire") })
-nnoremap([[C{]], repetition(modifiers.cut.surround, "{}", "on"), { silent = true, desc = descriptions.surround("cut", "{}", "on", "entire") })
-nnoremap([[C<]], repetition(modifiers.cut.surround, "<>", "on"), { silent = true, desc = descriptions.surround("cut", "<>", "on", "entire") })
-nnoremap([[C"]], repetition(modifiers.cut.surround, '""', "on"), { silent = true, desc = descriptions.surround("cut", '""', "on", "entire") })
-nnoremap([[C']], repetition(modifiers.cut.surround, "''", "on"), { silent = true, desc = descriptions.surround("cut", "''", "on", "entire") })
+nnoremap([[c(]], repetition(modifiers.cut.surround, "()", "in", "entire"), { silent = true, desc = descriptions.surround("cut", "()", "in", "entire") })
+nnoremap([[c[]], repetition(modifiers.cut.surround, "[]", "in", "entire"), { silent = true, desc = descriptions.surround("cut", "[]", "in", "entire") })
+nnoremap([[c{]], repetition(modifiers.cut.surround, "{}", "in", "entire"), { silent = true, desc = descriptions.surround("cut", "{}", "in", "entire") })
+nnoremap([[c<]], repetition(modifiers.cut.surround, "<>", "in", "entire"), { silent = true, desc = descriptions.surround("cut", "<>", "in", "entire") })
+nnoremap([[c"]], repetition(modifiers.cut.surround, '""', "in", "entire"), { silent = true, desc = descriptions.surround("cut", '""', "in", "entire") })
+nnoremap([[c']], repetition(modifiers.cut.surround, "''", "in", "entire"), { silent = true, desc = descriptions.surround("cut", "''", "in", "entire") })
+nnoremap([[C(]], repetition(modifiers.cut.surround, "()", "on", "entire"), { silent = true, desc = descriptions.surround("cut", "()", "on", "entire") })
+nnoremap([[C[]], repetition(modifiers.cut.surround, "[]", "on", "entire"), { silent = true, desc = descriptions.surround("cut", "[]", "on", "entire") })
+nnoremap([[C{]], repetition(modifiers.cut.surround, "{}", "on", "entire"), { silent = true, desc = descriptions.surround("cut", "{}", "on", "entire") })
+nnoremap([[C<]], repetition(modifiers.cut.surround, "<>", "on", "entire"), { silent = true, desc = descriptions.surround("cut", "<>", "on", "entire") })
+nnoremap([[C"]], repetition(modifiers.cut.surround, '""', "on", "entire"), { silent = true, desc = descriptions.surround("cut", '""', "on", "entire") })
+nnoremap([[C']], repetition(modifiers.cut.surround, "''", "on", "entire"), { silent = true, desc = descriptions.surround("cut", "''", "on", "entire") })
 
 -- Cut Partial Surrounds
 nnoremap([[cb(]], repetition(modifiers.cut.surround, "()", "in", "back"), { silent = true, desc = descriptions.surround("cut", "()", "in", "back") })
@@ -783,18 +787,18 @@ nnoremap([[ybw]], repetition(modifiers.copy.text, "bwor"), { silent = true, desc
 nnoremap([[ybe]], repetition(modifiers.copy.text, "bexp"), { silent = true, desc = descriptions.text("copy", "bexp") })
 nnoremap([[ybl]], repetition(modifiers.copy.text, "blin"), { silent = true, desc = descriptions.text("copy", "blin") })
 -- Copy Surrounds
-nnoremap([[y(]], repetition(modifiers.copy.surround, "()", "in"), { silent = true, desc = descriptions.surround("copy", "()", "in", "entire") })
-nnoremap([[y[]], repetition(modifiers.copy.surround, "[]", "in"), { silent = true, desc = descriptions.surround("copy", "[]", "in", "entire") })
-nnoremap([[y{]], repetition(modifiers.copy.surround, "{}", "in"), { silent = true, desc = descriptions.surround("copy", "{}", "in", "entire") })
-nnoremap([[y<]], repetition(modifiers.copy.surround, "<>", "in"), { silent = true, desc = descriptions.surround("copy", "<>", "in", "entire") })
-nnoremap([[y"]], repetition(modifiers.copy.surround, '""', "in"), { silent = true, desc = descriptions.surround("copy", '""', "in", "entire") })
-nnoremap([[y']], repetition(modifiers.copy.surround, "''", "in"), { silent = true, desc = descriptions.surround("copy", "''", "in", "entire") })
-nnoremap([[Y(]], repetition(modifiers.copy.surround, "()", "on"), { silent = true, desc = descriptions.surround("copy", "()", "on", "entire") })
-nnoremap([[Y[]], repetition(modifiers.copy.surround, "[]", "on"), { silent = true, desc = descriptions.surround("copy", "[]", "on", "entire") })
-nnoremap([[Y{]], repetition(modifiers.copy.surround, "{}", "on"), { silent = true, desc = descriptions.surround("copy", "{}", "on", "entire") })
-nnoremap([[Y<]], repetition(modifiers.copy.surround, "<>", "on"), { silent = true, desc = descriptions.surround("copy", "<>", "on", "entire") })
-nnoremap([[Y"]], repetition(modifiers.copy.surround, '""', "on"), { silent = true, desc = descriptions.surround("copy", '""', "on", "entire") })
-nnoremap([[Y']], repetition(modifiers.copy.surround, "''", "on"), { silent = true, desc = descriptions.surround("copy", "''", "on", "entire") })
+nnoremap([[y(]], repetition(modifiers.copy.surround, "()", "in", "entire"), { silent = true, desc = descriptions.surround("copy", "()", "in", "entire") })
+nnoremap([[y[]], repetition(modifiers.copy.surround, "[]", "in", "entire"), { silent = true, desc = descriptions.surround("copy", "[]", "in", "entire") })
+nnoremap([[y{]], repetition(modifiers.copy.surround, "{}", "in", "entire"), { silent = true, desc = descriptions.surround("copy", "{}", "in", "entire") })
+nnoremap([[y<]], repetition(modifiers.copy.surround, "<>", "in", "entire"), { silent = true, desc = descriptions.surround("copy", "<>", "in", "entire") })
+nnoremap([[y"]], repetition(modifiers.copy.surround, '""', "in", "entire"), { silent = true, desc = descriptions.surround("copy", '""', "in", "entire") })
+nnoremap([[y']], repetition(modifiers.copy.surround, "''", "in", "entire"), { silent = true, desc = descriptions.surround("copy", "''", "in", "entire") })
+nnoremap([[Y(]], repetition(modifiers.copy.surround, "()", "on", "entire"), { silent = true, desc = descriptions.surround("copy", "()", "on", "entire") })
+nnoremap([[Y[]], repetition(modifiers.copy.surround, "[]", "on", "entire"), { silent = true, desc = descriptions.surround("copy", "[]", "on", "entire") })
+nnoremap([[Y{]], repetition(modifiers.copy.surround, "{}", "on", "entire"), { silent = true, desc = descriptions.surround("copy", "{}", "on", "entire") })
+nnoremap([[Y<]], repetition(modifiers.copy.surround, "<>", "on", "entire"), { silent = true, desc = descriptions.surround("copy", "<>", "on", "entire") })
+nnoremap([[Y"]], repetition(modifiers.copy.surround, '""', "on", "entire"), { silent = true, desc = descriptions.surround("copy", '""', "on", "entire") })
+nnoremap([[Y']], repetition(modifiers.copy.surround, "''", "on", "entire"), { silent = true, desc = descriptions.surround("copy", "''", "on", "entire") })
 
 -- Copy Partial Surrounds
 nnoremap([[yb(]], repetition(modifiers.copy.surround, "()", "in", "back"), { silent = true, desc = descriptions.surround("copy", "()", "in", "back") })
