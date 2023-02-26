@@ -193,7 +193,7 @@ function buffers.format()
 		this = string.rep(" ", buffers.length.number[2] - #number)
 		that = string.rep(" ", buffers.length.buffer[2] - #buffer)
 
-		if number == tostring(buffers.buffers["current"]) then
+		if number == tostring(buffers.others["current"]) then
 			line = string.format('   %s[%s]  %s  %s"%s"%s  -- %s', this, number, icon, modified, buffer, that, path)
 		else
 			line = string.format("    %s[%s]  %s  %s%s %s   -- %s", this, number, icon, modified, buffer, that, path)
@@ -215,14 +215,21 @@ function buffers.create()
 	buffers.update()
 	buffers.format()
 
+	print(buffers.buffers["current"], buffers.others["current"])
+
 	buffers.buffer = vim.api.nvim_create_buf(false, true)
 	buffers.window = vim.api.nvim_open_win(buffers.buffer, true, {
 		border = "rounded",
 		relative = "editor",
 		width = buffers.width,
 		height = buffers.height,
-		col = (width - buffers.width) / 2,
-		row = (height - buffers.height) / 2,
+		col = math.floor((width - buffers.width) / 2),
+		row = math.floor((height - buffers.height) / 2),
+	})
+
+	vim.api.nvim_win_set_config(buffers.window, {
+		width = buffers.width,
+		height = buffers.height,
 	})
 
 	vim.api.nvim_buf_set_lines(buffers.buffer, 0, -1, false, buffers.lines)
