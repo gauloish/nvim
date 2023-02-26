@@ -328,6 +328,12 @@ highlights.colors = function()
 		highlight("barbecue_context_file", { fg = palette.magenta[2], clear = true })
 	end
 
+	do -- Terminal Highlights: plugins/terminal.lua
+		highlight("TerminalNormal", { bg = palette.base[2], clear = true })
+		highlight("TerminalNormalFloat", { bg = palette.base[3], clear = true })
+		highlight("TerminalFloatBorder", { bg = palette.base[3], fg = palette.base[10], clear = true })
+	end
+
 	do -- Status Line Highlights: plugins/statusline.lua
 	end
 
