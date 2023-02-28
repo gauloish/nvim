@@ -15,12 +15,15 @@ local terminal = modules("toggleterm")
 ---------- Terminal Setup
 
 terminal.setup({
+	direction = "float",
 	size = function(screen)
 		if screen.direction == "horizontal" then
-			return get("lines") * 0.2
+			return math.floor(get("lines") * 0.2)
 		elseif screen.direction == "vertical" then
-			return get("columns") * 0.4
+			return math.floor(get("columns") * 0.4)
 		end
+
+		return 10
 	end,
 	hide_numbers = true,
 	highlights = {
@@ -30,11 +33,11 @@ terminal.setup({
 	},
 	float_opts = {
 		border = "curved",
-		width = function(_)
-			return get("columns") * 0.6
+		width = function()
+			return math.floor(get("columns") * 0.6)
 		end,
-		height = function(_)
-			return get("lines") * 0.6
+		height = function()
+			return math.floor(get("lines") * 0.6)
 		end,
 	},
 })
