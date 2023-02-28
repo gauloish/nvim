@@ -3,13 +3,11 @@
 require("interface")
 require("general")
 
-local themes = require("tools/themes")
-
 ---------- Verification Step
 
 local modules = dependencies({
 	"nvim-tree",
-	"nvim-tree.config",
+	"nvim-tree.api",
 })
 
 if not modules then
@@ -17,42 +15,46 @@ if not modules then
 end
 
 local explorer = modules("nvim-tree")
-local action = modules("nvim-tree.config").nvim_tree_callback
+local action = modules("nvim-tree.api")
 
 ---------- File Explorer Setup
 
-local shortkeys = {
-	{ key = "<enter>", cb = action("edit") },
-	{ key = "<tab>", cb = action("preview") },
-	{ key = "<bs>", cb = action("close_node") },
-	{ key = "<", cb = action("dir_up") },
-	{ key = ">", cb = action("cd") },
-	{ key = "H", cb = action("prev_sibling") },
-	{ key = "L", cb = action("next_sibling") },
-	{ key = "J", cb = action("last_sibling") },
-	{ key = "K", cb = action("first_sibling") },
-	{ key = "a", cb = action("create") },
-	{ key = "d", cb = action("remove") },
-	{ key = "c", cb = action("cut") },
-	{ key = "y", cb = action("copy") },
-	{ key = "p", cb = action("paste") },
-	{ key = "r", cb = action("rename") },
-	{ key = "<c-n>", cb = action("copy_name") },
-	{ key = "<c-p>", cb = action("copy_path") },
-	{ key = "<c-a>", cb = action("copy_absolute_path") },
-	{ key = "<c-v>", cb = action("vsplit") },
-	{ key = "<c-h>", cb = action("split") },
-	{ key = "<c-r>", cb = action("refresh") },
-	{ key = "s", cb = action("system_open") },
-	{ key = "m", cb = action("toggle_help") },
-}
+local keys = function(buffer)
+	local options = {
+		buffer = buffer,
+		silent = true,
+		nowait = true,
+	}
+
+	nnoremap("<enter>", action.node.open.edit, options)
+	nnoremap("<tab>", action.node.open.preview, options)
+	nnoremap("<bs>", action.node.navigate.parent_close, options)
+	nnoremap("<", action.tree.change_root_to_parent, options)
+	nnoremap(">", action.tree.change_root_to_node, options)
+	nnoremap("H", action.node.navigate.sibling.first, options)
+	nnoremap("J", action.node.navigate.sibling.last, options)
+	nnoremap("K", action.node.navigate.sibling.first, options)
+	nnoremap("L", action.node.navigate.sibling.last, options)
+	nnoremap("a", action.fs.create, options)
+	nnoremap("d", action.fs.remove, options)
+	nnoremap("c", action.fs.cut, options)
+	nnoremap("y", action.fs.copy.node, options)
+	nnoremap("p", action.fs.paste, options)
+	nnoremap("r", action.fs.rename, options)
+	nnoremap("<c-n>", action.fs.copy.filename, options)
+	nnoremap("<c-p>", action.fs.copy.relative_path, options)
+	nnoremap("<c-a>", action.fs.copy.absolute_path, options)
+	nnoremap("<c-v>", action.node.open.vertical, options)
+	nnoremap("<c-h>", action.node.open.horizontal, options)
+	nnoremap("<c-r>", action.tree.reload, options)
+	nnoremap("s", action.node.run.system, options)
+	nnoremap("m", action.tree.toggle_help, options)
+end
 
 explorer.setup({
+	on_attach = keys,
 	disable_netrw = true,
 	hijack_netrw = true,
-	open_on_setup = false,
-	ignore_ft_on_setup = {},
-	open_on_tab = false,
 	hijack_cursor = false,
 	update_cwd = false,
 	diagnostics = {
@@ -76,10 +78,6 @@ explorer.setup({
 	view = {
 		width = 30,
 		side = "left",
-		mappings = {
-			custom_only = true,
-			list = shortkeys,
-		},
 	},
 	renderer = {
 		root_folder_modifier = ":t",
@@ -172,4 +170,4 @@ end
 
 ---------- File Explorer Mappings
 
-nnoremap("<a-e>", ":NvimTreeToggle <cr>", { silent = true })
+nnoremap("<a-e>", bundle(action.tree.toggle, {}), { silent = true })
