@@ -46,7 +46,7 @@ servers.languages = {
 
 	----- Lua
 	["lua"] = {
-		name = "sumneko_lua",
+		name = "lua_ls",
 		server = "lua-language-server",
 		settings = {
 			settings = {
