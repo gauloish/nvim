@@ -16,6 +16,14 @@ local terminal = modules("toggleterm")
 
 terminal.setup({
 	direction = "float",
+	on_open = function(term)
+		vim.api.nvim_buf_set_name(term.bufnr, ("Terminal [%s]"):format(term.id))
+
+		setwindow("number", false, term.window)
+		setwindow("relativenumber", false, term.window)
+
+		print(getwindow("number", term.window))
+	end,
 	size = function(screen)
 		if screen.direction == "horizontal" then
 			return math.floor(get("lines") * 0.2)
