@@ -24,7 +24,7 @@ wilder.setup({
 	reject_key = "<up>",
 })
 
-wilder.set_option(
+--[[ wilder.set_option(
 	"renderer",
 	wilder.popupmenu_renderer(wilder.popupmenu_palette_theme({
 		mode = "float",
@@ -58,32 +58,34 @@ wilder.set_option(
 		prompt_position = "bottom",
 		reverse = false,
 	}))
-)
+) ]]
 
---[[
-wilder.set_option('renderer', wilder.popupmenu_renderer(
-	wilder.popupmenu_border_theme({
-		mode = 'float',
-		ellipsis = '...',
+wilder.set_option(
+	"renderer",
+	wilder.popupmenu_renderer(wilder.popupmenu_border_theme({
+		mode = "float",
+		ellipsis = "...",
 		left = {
-			' ', wilder.popupmenu_devicons(),
+			" ",
+			wilder.popupmenu_devicons(),
 		},
 		right = {
-			' ', wilder.popupmenu_scrollbar(),
+			" ",
+			wilder.popupmenu_scrollbar(),
 		},
 		highlighter = wilder.basic_highlighter(),
 		highlights = {
-			border = 'FloatBorder',
-			default = 'WildDefault',
-			selected = 'WildSelected',
-			accent = 'WildAccent',
-			selected_accent = 'WildSelectedAccent'
+			border = "FloatBorder",
+			default = "WildDefault",
+			selected = "WildSelected",
+			accent = "WildAccent",
+			selected_accent = "WildSelectedAccent",
 		},
-		border = 'rounded',
-		min_width = '20%',
-		max_width = '60%',
-		min_height = '0%',
-		max_height = '40%'
-	})
-))
---]]
+		border = "rounded",
+		min_width = "20%",
+		max_width = "60%",
+		min_height = "0%",
+		max_height = "40%",
+	}))
+)
+--
