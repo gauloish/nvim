@@ -63,7 +63,7 @@ default.capabilities = vim.tbl_deep_extend("force", default.capabilities, comple
 
 servers.setup()
 formatters.setup()
-linters.setup()
+-- linters.setup()
 
 require("lspconfig.ui.windows").default_options.border = "rounded"
 
