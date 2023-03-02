@@ -92,7 +92,7 @@ end
 
 formatters.verify = function(info)
 	if not formatters.exists(info) then
-		return false
+		return true
 	end
 
 	local formatter = info["formatter"]
@@ -101,11 +101,11 @@ formatters.verify = function(info)
 
 	for _, name in pairs(names) do
 		if name == formatter then
-			return false
+			return true
 		end
 	end
 
-	return true
+	return false
 end
 
 formatters.install = function(filetype)
@@ -113,14 +113,16 @@ formatters.install = function(filetype)
 
 	local info = formatters.languages[language]
 
-	if not formatters.verify(info) then
+	if formatters.verify(info) then
 		return false
 	end
 
 	local formatter = info["formatter"]
 
-	if eval["input"]("Install `%s` formatter to `%s` filetype? [y/N]", "") == "y" then
-		print(("Installing [%s] formatter to [%s] filetype."):format(formatter, filetype))
+	if eval["input"](("Install `%s` formatter to `%s` filetype? [y/N]: "):format(formatter, filetype)) == "y" then
+		execute([[echomsg " "]])
+
+		print(("\nInstalling [%s] formatter to [%s] filetype."):format(formatter, filetype))
 
 		execute("MasonInstall " .. formatter)
 	end
