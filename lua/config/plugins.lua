@@ -71,7 +71,7 @@ manager.plugins = {
 
 	---------- Wild Menu
 
-	"gelguy/wilder.nvim",
+	"matheus-moreno/wilder.nvim",
 
 	---------- Shades
 
