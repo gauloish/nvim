@@ -98,7 +98,7 @@ end
 
 servers.verify = function(info)
 	if not servers.exists(info) then
-		return false
+		return true
 	end
 
 	local server = info["server"]
@@ -107,11 +107,11 @@ servers.verify = function(info)
 
 	for _, name in pairs(names) do
 		if name == server then
-			return false
+			return true
 		end
 	end
 
-	return true
+	return false
 end
 
 servers.install = function(filetype)
@@ -119,14 +119,16 @@ servers.install = function(filetype)
 
 	local info = servers.languages[language]
 
-	if not servers.verify(info) then
+	if servers.verify(info) then
 		return false
 	end
 
 	local server = info["server"]
 
-	if eval["input"]("Install `%s` server to `%s` filetype? [y/N]", "") == "y" then
-		print(("Installing [%s] server to [%s] filetype."):format(server, filetype))
+	if eval["input"](("Install `%s` server to `%s` filetype? [y/N]: "):format(server, filetype)) == "y" then
+		execute([[echomsg " "]])
+
+		print(("\nInstalling [%s] server to [%s] filetype."):format(server, filetype))
 
 		execute("MasonInstall " .. server)
 	end
@@ -134,7 +136,7 @@ end
 
 servers.configure = function()
 	for _, info in pairs(servers.languages) do
-		if servers.exists(info) then
+		if servers.verify(info) then
 			local name = info["name"]
 			local settings = info["settings"]
 
