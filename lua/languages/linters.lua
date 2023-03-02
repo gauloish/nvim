@@ -72,7 +72,7 @@ end
 
 linters.verify = function(info)
 	if not linters.exists(info) then
-		return false
+		return true
 	end
 
 	local linter = info["linter"]
@@ -81,11 +81,11 @@ linters.verify = function(info)
 
 	for _, name in pairs(names) do
 		if name == linter then
-			return false
+			return true
 		end
 	end
 
-	return true
+	return false
 end
 
 linters.install = function(filetype)
@@ -93,14 +93,16 @@ linters.install = function(filetype)
 
 	local info = linters.languages[language]
 
-	if not linters.verify(info) then
+	if linters.verify(info) then
 		return false
 	end
 
 	local linter = info["linter"]
 
-	if eval["input"]("Install `%s` linter to `%s` filetype? [y/N]", "") == "y" then
-		print(("Installing [%s] linter to [%s] filetype."):format(linter, filetype))
+	if eval["input"](("Install `%s` linter to `%s` filetype? [y/N]: "):format(linter, filetype)) == "y" then
+		execute([[echomsg " "]])
+
+		print(("\nInstalling [%s] linter to [%s] filetype."):format(linter, filetype))
 
 		execute("MasonInstall " .. linter)
 	end
