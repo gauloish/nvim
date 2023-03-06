@@ -3,8 +3,6 @@
 require("interface")
 require("general")
 
-local themes = require("tools/themes")
-
 ---------- Verification Step
 
 local modules = dependencies({
