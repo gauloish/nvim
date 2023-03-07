@@ -956,8 +956,8 @@ nnoremap([[_]], [[:resize -1<cr>]], { silent = true })
 
 nnoremap([[<a-t>p]], repetition(tab.move, "previous"), { silent = true })
 nnoremap([[<a-t>n]], repetition(tab.move, "next"), { silent = true })
-nnoremap([[<a-t>f]], repetition(tab.move, "first"), { silent = true })
-nnoremap([[<a-t>l]], repetition(tab.move, "last"), { silent = true })
+-- nnoremap([[<a-t>f]], repetition(tab.move, "first"), { silent = true })
+-- nnoremap([[<a-t>l]], repetition(tab.move, "last"), { silent = true })
 
 nnoremap([[<a-t>d]], wrapper(tab.manipulate, "delete"), { silent = true })
 nnoremap([[<a-t>a]], wrapper(tab.manipulate, "create"), { silent = true })
@@ -983,3 +983,12 @@ vnoremap([[c]], [[d]])
 
 vnoremap([[>]], repetition(indent.block, "front"), { silent = true })
 vnoremap([[<]], repetition(indent.block, "back"), { silent = true })
+
+---------- Terminal Maps
+
+tnoremap("<esc>", "<c-\\><c-n>", { silent = true })
+
+tnoremap([[<a-h>]], [[<cmd>wincmd h<cr>]], { silent = true })
+tnoremap([[<a-j>]], [[<cmd>wincmd j<cr>]], { silent = true })
+tnoremap([[<a-k>]], [[<cmd>wincmd k<cr>]], { silent = true })
+tnoremap([[<a-l>]], [[<cmd>wincmd l<cr>]], { silent = true })
