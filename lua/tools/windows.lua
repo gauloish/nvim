@@ -72,6 +72,7 @@ function windows.enter()
 			Buffers = true,
 			TelescopePrompt = true,
 			Search = true,
+			toggleterm = true,
 		},
 		number = {
 			Startup = true,
@@ -96,6 +97,7 @@ function windows.enter()
 			TelescopePrompt = true,
 			mason = true,
 			Search = true,
+			toggleterm = true,
 		},
 		signcolumn = {
 			Startup = true,
@@ -104,6 +106,7 @@ function windows.enter()
 			TelescopePrompt = true,
 			mason = true,
 			Search = true,
+			toggleterm = true,
 		},
 	}
 
