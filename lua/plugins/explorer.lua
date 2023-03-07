@@ -150,7 +150,11 @@ end
 
 local function rename()
 	if getbuffer("filetype") == "NvimTree" then
-		execute("file Files")
+		local name = eval["bufname"]("%")
+		local number = tonumber(name:match(".*_(.*)"))
+
+		-- execute("0file")
+		-- execute(("file Files [%d]"):format(number))
 	end
 end
 
