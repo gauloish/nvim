@@ -31,7 +31,7 @@ formatters.languages = {
 			return {
 				exe = "clang-format",
 				args = {
-					"-style '{BasedOnStyle: Google, IndentWidth: 4}'",
+					"-style '{BasedOnStyle: Google, IndentWidth: 4, ColumnLimit: 120}'",
 				},
 				stdin = true,
 			}
@@ -46,7 +46,7 @@ formatters.languages = {
 			return {
 				exe = "clang-format",
 				args = {
-					"-style '{BasedOnStyle: Google, IndentWidth: 4}'",
+					"-style '{BasedOnStyle: Google, IndentWidth: 4, ColumnLimit: 120}'",
 				},
 				stdin = true,
 			}
