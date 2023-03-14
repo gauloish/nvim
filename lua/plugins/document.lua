@@ -44,6 +44,7 @@ end
 
 document.setup({
 	snippet_engine = "luasnip",
+	placeholders_hl = "None",
 })
 
 ---------- Document Mappings
